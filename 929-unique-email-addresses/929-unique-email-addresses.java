@@ -5,23 +5,26 @@ class Solution {
             return 0;
         }
         
-        List<String> result=new ArrayList<>();
+        /*Logic used : First break the String around "@", to get local and domain. Then
+        in local, check if it contains "+" or not. These will be 2 cases. And within two cases
+        , check if the substring contain ".". Replace "." with "" and add everything to 
+        StringBuilder.*/
+        
+        
         HashSet<String> finalResult=new HashSet<>();
 
         for(String x:emails){
 
             StringBuilder sb=new StringBuilder();
 
+            //Splitting the string around "@". temp[0] is local and temp[1] is domain.
             String[] temp=x.split("@");
 
-            //Splitting around +. temp2[0] and temp2[1]
+            
             if(temp[0].contains("+")) {
                 String[] temp2 = temp[0].split("\\+");
 
                 if(temp2[0].contains(".")){
-//                    String[] temp3=temp2[0].split("\\.");
-//                    sb.append(temp3[0]);
-//                    sb.append(temp3[1]);
                     temp2[0]=temp2[0].replace(".","");
                     sb.append(temp2[0]);
                 }else{
@@ -30,9 +33,6 @@ class Solution {
 
             }else{
                 if(temp[0].contains(".")){
-//                    String[] temp3=temp[0].split("\\.");
-//                    sb.append(temp3[0]);
-//                    sb.append(temp3[1]);
                     temp[0]=temp[0].replace(".","");
                     sb.append(temp[0]);
                 }else{
@@ -42,13 +42,9 @@ class Solution {
             }
             sb.append("@");
             sb.append(temp[1]);
-            result.add(sb.toString());
+            finalResult.add(sb.toString());
 
         }
-
-        result.forEach( x -> finalResult.add(x));
-
-        // System.out.println(finalResult.size());
         
         return finalResult.size();
     }

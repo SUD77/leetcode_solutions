@@ -10,67 +10,40 @@
  */
 class Solution {
     public boolean isPalindrome(ListNode head) {
-    
-
         
-        ListNode tempx=copyList(head);
-         
-        ListNode ReverseHead=reverseList(tempx);
         
-        while(head!=null && ReverseHead!=null){
+        ListNode slow=head;
+        ListNode fast=head;
+        
+        while(fast.next!=null && fast.next.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        
+        
+        ListNode rev=slow.next;
+        
+        ListNode Rll=null;
             
-            
-            if(ReverseHead.val!= head.val){
+        //Reversing the list here
+        while(rev!=null){
+            ListNode temp=rev.next;
+            rev.next=Rll;
+            Rll=rev;
+            rev=temp;
+        }
+        
+        ListNode dummy=head;
+        
+        while(Rll!=null){
+            if(dummy.val!=Rll.val){
                 return false;
             }
-            head=head.next;
-            ReverseHead=ReverseHead.next;
+            dummy=dummy.next;
+            Rll=Rll.next;
         }
         
         return true;
+            
     }
-    
-    
-    public ListNode reverseList(ListNode head) {
-        
-      ListNode Rll=null;
-        
-        while(head!=null){
-            ListNode temp=head;
-            temp=temp.next;
-            head.next=Rll;
-            Rll=head;
-            head=temp;
-        }
-        
-        return Rll;
-    }
-    
-    public ListNode copyList(ListNode head)
-    {
-        ListNode current = head;    // used to iterate over the original list
-        ListNode newList = null;    // head of the new list
-        ListNode tail = null;       // point to the last node in a new list
- 
-        while (current != null)
-        {
-            // special case for the first new node
-            if (newList == null)
-            {
-                newList = new ListNode(current.val, null);
-                tail = newList;
-            }
-            else {
-                tail.next = new ListNode();
-                tail = tail.next;
-                tail.val = current.val;
-                tail.next = null;
-            }
-            current = current.next;
-        }
- 
-        return newList;
-    }
-    
-    
 }

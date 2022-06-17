@@ -1,32 +1,35 @@
 class Solution {
-    public List<List<Integer>> subsetsWithDup(int[] A) {
+    
+    Set<List<Integer>> result2=new HashSet<>();
+    List<List<Integer>> result=new ArrayList<>();
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
         
-        List<List<Integer>> result=new ArrayList<>();
-		Arrays.sort(A);
-        subsetUtil(A,0,new ArrayList(),result);
+        Arrays.sort(nums);
+        subsetUtil(nums,0,new ArrayList());
+        
+        for(List<Integer> x:result2){
+            result.add(x);
+        }
 
-        
         return result;
     }
     
-    public void subsetUtil(int[] A,int currentIndex,List<Integer> currentSubset,List<List<Integer>> set){
-		
-		if(currentIndex==A.length){
-            List<Integer> te=new ArrayList<>(currentSubset);
-            List<Integer> te2=new ArrayList<>(currentSubset);
-            Collections.sort(te);
-            Collections.sort(te2,Collections.reverseOrder());
-            if(!set.contains(te) && !set.contains(te2)){
-                set.add(new ArrayList(currentSubset));
-                return;
-            }
+    public void subsetUtil(int[] nums,int currentIndex,List<Integer> currentSubset){
+
+        if(currentIndex==nums.length){
+
+            result2.add(new ArrayList(currentSubset));
+//            result.add(new ArrayList(currentSubset));
+
             return;
         }
 
-        currentSubset.add(A[currentIndex]);
-        subsetUtil(A,currentIndex+1,currentSubset,set);
+        currentSubset.add(nums[currentIndex]);
+        subsetUtil(nums,currentIndex+1,currentSubset);
 
         currentSubset.remove(currentSubset.size()-1);
-        subsetUtil(A,currentIndex+1,currentSubset,set);
-	}
+        subsetUtil(nums,currentIndex+1,currentSubset);
+    }
+    
+    
 }

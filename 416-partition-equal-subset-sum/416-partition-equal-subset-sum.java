@@ -14,46 +14,29 @@ class Solution {
         
         
         //dp. 
-        int dp[][]=new int[nums.length][sum+1];
+        boolean dp[][]=new boolean[nums.length+1][sum+1];
         
-        for(int[] x:dp){
-            Arrays.fill(x,-1);
+        for(int i=0;i<=nums.length;i++){
+            
+            for(int j=0;j<=sum;j++){
+                
+                if(i==0 && j!=0){
+                    dp[i][j]=false;
+                }else if(j==0){
+                    dp[i][j]=true;
+                }else{
+                    
+                    if(j>=nums[i-1]){
+                        dp[i][j]=dp[i-1][j-nums[i-1]] || dp[i-1][j];
+                    }else{
+                        dp[i][j]=dp[i-1][j];
+                    }
+                }
+            }
         }
-        
-      
-        int ans=solUtil(nums.length-1,sum,nums,dp);
-        
-        if(ans==1) return true;
-        
-        return false;
+    
+        return dp[nums.length][sum];
     }
     
-    public int solUtil(int index,int target,int[] arr,int[][] dp){
-        
-        if(dp[index][target]!=-1) return dp[index][target];
-        
-        if(target==0) return 1;
-        if(index==0){
-            
-            if(arr[0]==target) return 1;
-            else return 0;
-        } 
-            
-        
-        int notTake=solUtil(index-1,target,arr,dp);
-        
-        int take=0;
-        if(target>=arr[index]){
-            take=solUtil(index-1,target-arr[index],arr,dp);
-        }
-        
-        if(take==0 && notTake==0){
-            dp[index][target]=0;
-        }else{
-            dp[index][target]=1;
-        }
-        
-        return dp[index][target];
-        
-    }
+  
 }

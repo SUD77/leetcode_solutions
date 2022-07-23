@@ -5,34 +5,35 @@ class Solution {
         
         int[][] dp=new int[n][amount+1];
         
-        for(int[] x:dp){
-            Arrays.fill(x,-1);
+        
+        //for index==0. i.e our base case. 
+        for(int i=0;i<=amount;i++){
+            
+            if(i%coins[0]==0) dp[0][i]=i/coins[0];
+            else dp[0][i]=(int)Math.pow(10,9);
         }
         
-        if(solUtil(coins,n-1,amount,dp)!=(int)Math.pow(10,9))
-            return solUtil(coins,n-1,amount,dp);
+        
+        for(int i=1;i<n;i++ ){
+            
+            for(int j=0;j<=amount;j++){
+                
+                int notTake=dp[i-1][j]; 
+                
+                int take=(int)Math.pow(10,9);
+                if(coins[i]<=j){
+                    take=1+dp[i][j-coins[i]];
+                }
+                
+                dp[i][j]=Math.min(take,notTake);
+            }
+        }
+        
+        if(dp[n-1][amount]!=(int)Math.pow(10,9))
+            return dp[n-1][amount];
         
         return -1;
     }
     
-    public int solUtil(int[] coins,int index,int amount,int[][] dp){
-        
-        
-        if(dp[index][amount]!=-1) return dp[index][amount];
-        if(index==0) 
-        {
-        
-            if(amount%coins[index]==0) return dp[index][amount]=amount/coins[index];
-            else return dp[index][amount]=(int)Math.pow(10,9);
-        }
-        
-        int notTake=solUtil(coins,index-1,amount,dp);
-        
-        int take=(int)Math.pow(10,9);
-        if(coins[index]<=amount){
-            take=1+solUtil(coins,index,amount-coins[index],dp);
-        }
-        
-        return dp[index][amount]=Math.min(take,notTake);
-    }
+   
 }

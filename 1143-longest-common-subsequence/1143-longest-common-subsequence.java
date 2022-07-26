@@ -7,24 +7,40 @@ class Solution {
         
         int[][] dp=new int[len1+1][len2+1];
         
-        for(int[] x:dp){
-            Arrays.fill(x,-1);
+        
+       
+        for(int i=0;i<len2;i++){
+           
+                dp[0][i]=0;
+          
         }
         
-        return solUtil(text1,text2,len1-1,len2-1,dp);
+        
+        
+        for(int i=0;i<len1;i++){
+                dp[i][0]=0;
+            
+        }
+        
+        
+        for(int i=1;i<=len1;i++){
+            
+            
+            for(int j=1;j<=len2;j++){
+                
+                if(text1.charAt(i-1)==text2.charAt(j-1)) 
+                {
+                    dp[i][j]=1+dp[i-1][j-1];
+                }else{
+                    dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+                }
+        
+       
+            }
+        }
+        
+        return dp[len1][len2];
     }
     
-    public int solUtil(String text1,String text2, int index1,int index2,int[][] dp){
-        
-        
-        if(index1<0 || index2<0) return 0;
-        
-        if(dp[index1][index2]!=-1) return dp[index1][index2];
-        
-        if(text1.charAt(index1)==text2.charAt(index2)) 
-            return dp[index1][index2]=1+solUtil(text1,text2,index1-1,index2-1,dp);
-        
-        
-        return dp[index1][index2]= 0+Math.max(solUtil(text1,text2,index1-1,index2,dp),solUtil(text1,text2,index1,index2-1,dp));
-    }
+    
 }

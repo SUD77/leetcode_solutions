@@ -1,33 +1,38 @@
 class Solution {
+    
+    
     public int numDistinct(String s, String t) {
       
         int len1=s.length();
         int len2=t.length();
         
-        int[][] dp=new int[len1][len2];
+        int[][] dp=new int[len1+1][len2+1];
         
-        for(int[] x:dp){
-            Arrays.fill(x,-1);
+        for(int i=0;i<len1+1;i++){
+            dp[i][0]=1;
+        }
+        
+        for(int i=1;i<len2+1;i++){
+            dp[0][i]=0;
         }
         
         
-        return solUtil(s,t,len1-1,len2-1,dp);
+        for(int i=1;i<len1+1;i++){
+            
+            for(int j=1;j<len2+1;j++){
+               
+                if(s.charAt(i-1)==t.charAt(j-1)){
+                    dp[i][j]=dp[i-1][j-1] + dp[i-1][j]; 
+                }else{
+                    dp[i][j]=dp[i-1][j];
+                }
+                
+            }
+        }
+        
+        return dp[len1][len2];
         
     }
     
-    public int solUtil(String s,String t,int idx1,int idx2,int[][] dp){
-        
-        if(idx2<0) return 1;   // String t is done
-        
-        if(idx1<0) return 0;  //String s is done but not t
-        
-        if(dp[idx1][idx2]!=-1) return dp[idx1][idx2];
-        
-        if(s.charAt(idx1)==t.charAt(idx2)){
-            return dp[idx1][idx2]=solUtil(s,t,idx1-1,idx2-1,dp) + solUtil(s,t,idx1-1,idx2,dp);
-        }
-        
-        //if they are not same
-        return dp[idx1][idx2]=solUtil(s,t,idx1-1,idx2,dp);
-    }
+   
 }

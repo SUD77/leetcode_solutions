@@ -1,6 +1,8 @@
-// Not my solution and logic.
-// Went though this code and logic 
-/* Link : https://leetcode.com/problems/find-closest-node-to-given-two-nodes/discuss/2357744/BFS-oror-Concept-of-Shortest-path-of-a-node-from-multiple-sources */
+/* Not my solution and logic.  Went though this code and logic 
+
+ Link : https://leetcode.com/problems/find-closest-node-to-given-two-nodes/discuss/2357744/BFS-oror-Concept-of-Shortest-path-of-a-node-from-multiple-sources *
+ 
+ Also, video explanation :https://www.youtube.com/watch?v=N21UqcJY5wU  */
 
 class Solution {
     public int closestMeetingNode(int[] edges, int node1, int node2) {

@@ -8,14 +8,15 @@ class Solution {
 
         int maxSum=0;
 
-        Arrays.sort(grades);
+        //Arrays.sort(grades);
 
+        //Intially adding the data in pq
         for(int x:grades){
             tempQ.add(x);
         }
 
 
-        //intial work
+        //Creating the first group. 
         int prevSize=1;
         maxSum=tempQ.poll();
         groups++;
@@ -25,13 +26,13 @@ class Solution {
         while(!tempQ.isEmpty()){
 
             int currSum=0;
-            //int currSize=0;
+            
             int j=0;
 
-            //System.out.println("maxSum " + maxSum + " prevSize " + prevSize);
+          
 
             if(tempQ.size()<=prevSize) break;
-            //System.out.println(tempQ);
+        
             while(j <= prevSize){
 
 
@@ -44,9 +45,6 @@ class Solution {
                     break;
                 }
             }
-
-
-           
 
             maxSum=Math.max(currSum,maxSum);
             prevSize=Math.max(j,prevSize);

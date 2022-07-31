@@ -8,8 +8,6 @@ class Solution {
 
         int maxSum=0;
 
-        //Arrays.sort(grades);
-
         //Intially adding the data in pq
         for(int x:grades){
             tempQ.add(x);
@@ -23,6 +21,7 @@ class Solution {
 
 
 
+        
         while(!tempQ.isEmpty()){
 
             int currSum=0;
@@ -30,9 +29,11 @@ class Solution {
             int j=0;
 
           
-
+            //If remaining elements are not greater than coun of prevsize, we 
+            // will end the case.
             if(tempQ.size()<=prevSize) break;
         
+            //Taking care that next group is larger than previous
             while(j <= prevSize){
 
 
@@ -40,12 +41,14 @@ class Solution {
                 tempQ.remove();
 
                 j++;
-
+                
+                //IF PQ gets empty we go out of the loop.
                 if(tempQ.isEmpty()) {
                     break;
                 }
             }
 
+            
             maxSum=Math.max(currSum,maxSum);
             prevSize=Math.max(j,prevSize);
             groups++;

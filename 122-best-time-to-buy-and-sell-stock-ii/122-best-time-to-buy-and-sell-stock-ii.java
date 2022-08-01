@@ -3,32 +3,34 @@ class Solution {
         
         int n=prices.length;
         
-        int[][] dp=new int[n][2];
+        int[][] dp=new int[n+1][2];
         
         for(int[] x:dp){
-            Arrays.fill(x,-1);
+            Arrays.fill(x,0);
         }
         
-        return solUtil(prices,n,0,1,dp);
+    
+        dp[n][0]=dp[n][1]=0;
+        
+        for(int i=n-1;i>=0;i--){
+            
+            for(int buy=0;buy<=1;buy++){
+                
+                int profit=0;
+                
+                 if(buy==1){
+            
+                    profit=Math.max(-prices[i] + dp[i+1][0], dp[i+1][1]);
+                }else{
+            
+                    profit=Math.max(prices[i] + dp[i+1][1],dp[i+1][0]);
+                }
+                dp[i][buy]=profit;
+            }
+        }
+        
+        return dp[0][1];
     }
     
-    public int solUtil(int[] prices,int n,int index,int buy,int[][] dp){
-        
-        if(index==n) return 0;
-        
-        if(dp[index][buy]!=-1) return dp[index][buy];
-        
-        int profit=0;
-        
-        if(buy==1){
-            
-            profit=Math.max(-prices[index] + solUtil(prices,n,index+1,0,dp), solUtil(prices,n,index+1,1,dp));
-        }else{
-            
-            profit=Math.max(prices[index] + solUtil(prices,n,index+1,1,dp),solUtil(prices,n,index+1,0,dp));
-        }
-        
-        
-        return dp[index][buy]=profit;
-    }
+   
 }

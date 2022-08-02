@@ -19,7 +19,7 @@ class Solution {
             
             for(int buy=0;buy<=1;buy++){
                 
-                for(int cap=1;cap<=2;cap++){
+                for(int cap=1;cap<=k;cap++){
                     
                     if(buy==1){
                         dp[index][buy][cap]=Math.max(-prices[index]+dp[index+1][0][cap],dp[index+1][1][cap]);

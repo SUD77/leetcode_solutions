@@ -6,34 +6,30 @@ class Solution {
         int[][] dp=new int[n+1][n+1];
         
         for(int[] x:dp){
-            Arrays.fill(x,-1);
+            Arrays.fill(x,0);
         }
         
-        return solUtil(nums,-1,0,dp);
+
+        for(int index=n-1;index>=0;index--){
+            
+            for(int prevIndex=index-1;prevIndex>=-1;prevIndex--){
+                
+                int len=dp[index+1][prevIndex+1];
+                
+                if(prevIndex == -1 || nums[index]>nums[prevIndex]){
+                    len=Math.max(len,1+dp[index+1][index+1]);
+                }
+                
+                dp[index][prevIndex+1]=len;
+            }
+        }
+        
+        // for(int[] x:dp){
+        //     System.out.println(Arrays.toString(x));
+        // }
+        
+        return dp[0][0];
     }
     
-    public int solUtil(int[] nums,int prevIndex,int nextIndex,int[][] dp){
-        
-        if(nextIndex==nums.length){
-            return 0;
-        }
-        
-        if(dp[prevIndex+1][nextIndex]!=-1) return dp[prevIndex+1][nextIndex]; 
-        
-        
-        int notTake=solUtil(nums,prevIndex,nextIndex+1,dp);
-        
-        int take=0;
-        
-        if(prevIndex==-1){
-            take=1+solUtil(nums,nextIndex,nextIndex+1,dp);
-        }else if(nums[nextIndex]>nums[prevIndex]){
-            take=1+solUtil(nums,nextIndex,nextIndex+1,dp);
-        }
-           
-            
-        return dp[prevIndex+1][nextIndex]=Math.max(take,notTake);    
-         
-        
-    }
+
 }

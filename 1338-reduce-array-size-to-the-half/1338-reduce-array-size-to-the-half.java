@@ -8,7 +8,7 @@ class Solution {
             
         HashMap<Integer,Integer> temp=new HashMap<>();
         List<Map.Entry<Integer, Integer>> arrValues=new ArrayList<>();
-        LinkedHashMap<Integer,Integer> linkedMap=new LinkedHashMap<>();
+       
         
         for(int x:arr){
             temp.put(x,temp.getOrDefault(x,0)+1);
@@ -24,12 +24,8 @@ class Solution {
             check=check-ele.getValue();
             count++;
             if(check<=n/2) break;
-            //linkedMap.put(ele.getKey(),ele.getValue());
+            
         }
-        
-        
-        //System.out.println(count);
-        
         
         
         return count;

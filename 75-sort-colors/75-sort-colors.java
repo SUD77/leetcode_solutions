@@ -1,20 +1,37 @@
 class Solution {
     public void sortColors(int[] nums) {
         
-        int[] countArray=new int[3];
-        int itr=0;
+        int low=0;
+        int high=nums.length-1;
+        int mid=0;
         
-        for(int x:nums){
-            countArray[x]++;
-        }
+        int temp;
         
-        //System.out.println(Arrays.toString(countArray));
-        
-        for(int i=0;i<3;i++){
+        while(mid<=high){
             
-            for(int j=0;j<countArray[i];j++){
-                nums[itr++]=i;
+            switch(nums[mid]){
+                    
+                case 0: {
+                    
+                    temp=nums[low];
+                    nums[low]=nums[mid];
+                    nums[mid]=temp;
+                    low++;
+                    mid++;
+                    break;
+                }
+                case 1: 
+                    mid++;
+                    break;
+                case 2: {
+                    temp=nums[mid];
+                    nums[mid]=nums[high];
+                    nums[high]=temp;
+                    high--;
+                    break;
+                }
             }
+            
         }
     }
 }

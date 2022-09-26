@@ -23,6 +23,9 @@ class Solution {
                 temp.add(arr);
             }
             i++;
+            
+            //Special condition for when interval is of 1 length or
+            //element is the last one of the interval 
             if(i==intervals.length){
                 int[] arr=new int[2];
                 arr[0]=start;

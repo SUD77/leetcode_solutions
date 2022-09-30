@@ -1,17 +1,26 @@
 class Solution {
-    //Using Combinations | TC= O(Math.min(row-1, col-1)) | SC = O(1)
-    
     public int uniquePaths(int m, int n) {
         
-        int N = m + n - 2;  //Total no of moves        
-        int r = Math.min(m , n) - 1; //take combination of either row-1 or col-1
+        int[][] dp=new int[m+1][n+1];
         
-        double res = 1;
-        for(int i=1; i<= r ; i++){
-         //   res = res * (N-r + i )/ i;
-            res = res * (N-i+1) / i; // ---->  my logic
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
         }
         
-        return (int)res;
+        return solUtil(m,n,0,0,dp);
+    }
+    
+    public int solUtil(int m,int n,int i,int j,int[][] dp){
+        
+        if(i>=m || j>=n) return 0;
+        
+        if(dp[i][j]!=-1) return dp[i][j];
+        
+        if(i==m-1 && j==n-1) return dp[i][j]=1;
+            
+        int down =solUtil(m,n,i+1,j,dp);
+        int right=solUtil(m,n,i,j+1,dp);
+        
+        return dp[i][j]=down+right;
     }
 }

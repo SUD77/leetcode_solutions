@@ -1,3 +1,5 @@
+// https://www.youtube.com/watch?v=NZh-HcLXQ_g
+
 class Solution {
     public int totalHammingDistance(int[] nums) {
         

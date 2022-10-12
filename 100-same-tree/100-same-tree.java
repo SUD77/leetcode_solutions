@@ -16,24 +16,10 @@
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
         
-        List<Integer> l1=new ArrayList<>();
-        List<Integer> l2=new ArrayList<>();
-        
-        dfsUtil(p,l1);
-        dfsUtil(q,l2);
-        
-        return l1.equals(l2);
-    }
-    
-    public void dfsUtil(TreeNode p, List<Integer> x){
-        
-        if(p==null) {
-            x.add(0);    
-            return;
+        if(p==null || q==null){
+            return p==q;
         }
         
-        x.add(p.val);
-        dfsUtil(p.left,x);
-        dfsUtil(p.right,x);
+        return (p.val==q.val) && isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
     }
 }

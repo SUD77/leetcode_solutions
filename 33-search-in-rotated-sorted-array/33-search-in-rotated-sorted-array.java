@@ -14,6 +14,7 @@ class Solution {
             if(arr[mid]==target)
                 return mid;
             
+            //this if else check if left half is sorted or right
             if(arr[low]<=arr[mid]){
                 
                 if(arr[low]<=target && arr[mid]>=target)

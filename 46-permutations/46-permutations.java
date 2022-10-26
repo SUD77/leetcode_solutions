@@ -3,33 +3,39 @@ class Solution {
      
         
         List<List<Integer>> ans= new ArrayList<>();     
-        List<Integer> tempDs=new ArrayList<>(); 
-        boolean[] freq=new boolean[nums.length];
         
-        solUtil(nums,ans,tempDs,freq);
+        solUtil(nums,ans,0);
         
         return ans;
     }
     
-    public void solUtil(int[] nums,List<List<Integer>> ans,List<Integer> tempDs,boolean[] freq ){
+    public void solUtil(int[] nums,List<List<Integer>> ans,int index){
         
-        if(tempDs.size() == nums.length){
-            ans.add(new ArrayList<>(tempDs));
+        if(index==nums.length){
+            
+            List<Integer> tempDs=new ArrayList<>();
+            
+            for(int x:nums){
+                tempDs.add(x);    
+            }
+            
+            ans.add(tempDs);
             return;
         }
         
-        for(int i=0;i<nums.length;i++){
-            
-            if(!freq[i]){
-                tempDs.add(nums[i]);
-                freq[i]=true;
-                
-                solUtil(nums,ans,tempDs,freq);
-                
-                tempDs.remove(tempDs.size()-1);
-                freq[i]=false;
-            }
-            
-        }
+       for(int i=index;i<nums.length;i++){
+           
+           swapMe(nums,i,index);
+           solUtil(nums,ans,index+1);
+           swapMe(nums,index,i);
+       }
+    }
+    
+    public void swapMe(int[] nums,int i,int j){
+        
+        int temp=nums[i];
+        nums[i]=nums[j];
+        nums[j]=temp;
+        
     }
 }

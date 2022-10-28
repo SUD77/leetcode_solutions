@@ -7,17 +7,12 @@ class Solution {
 
          for(int i=0;i<strs.length;i++){
 
-             String temString=strs[i];
-             char[] tempArr=strs[i].toCharArray();
-             Arrays.sort(tempArr);
-             String tempS=String.valueOf(tempArr);
+             String tempS=sortTheString(strs[i]);
              
              if(!map.containsKey(tempS)){
                  map.put(tempS,new ArrayList<String>());
              }
-             map.get(tempS).add(temString);
-
-
+             map.get(tempS).add(strs[i]);
 
          }
 
@@ -28,5 +23,14 @@ class Solution {
 
          return ans;
         
+    }
+    
+    public String sortTheString(String s){
+        
+        char[] tempArr=s.toCharArray();
+        Arrays.sort(tempArr);
+        String tempS=String.valueOf(tempArr);
+        
+        return tempS;
     }
 }

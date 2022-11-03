@@ -16,11 +16,11 @@ class Solution {
             
             if(wordsNotPaired.getOrDefault(reverse,0)>0){
                 ++pairs;
-                wordsNotPaired.merge(reverse,-1,Integer::sum);
+                wordsNotPaired.put(reverse, wordsNotPaired.getOrDefault(reverse, 0)-1);
                 symmetricWords-=w.charAt(0)==w.charAt(1) ? 1:0;
             }else{
                 
-                wordsNotPaired.merge(w, 1,Integer::sum);
+                wordsNotPaired.put(w, wordsNotPaired.getOrDefault(w, 0)+1);
                 
                 symmetricWords+=w.charAt(0)==w.charAt(1) ? 1:0;
             }

@@ -16,13 +16,9 @@
 class Solution {
     public int countNodes(TreeNode root) {
         
-        return solUtil(root);
-    }
-    
-    public int solUtil(TreeNode root){
-        
         if(root==null) return 0;
         
-        return 1+ solUtil(root.left) + solUtil(root.right);
+        return 1+ countNodes(root.left) + countNodes(root.right);
     }
+    
 }

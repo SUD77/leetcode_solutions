@@ -11,37 +11,48 @@
 class Solution {
     public ListNode oddEvenList(ListNode head) {
         
-        List<Integer> e=new ArrayList<>();
-        List<Integer> o=new ArrayList<>();
-        int countIndiceNo=1;
+        if(head==null || head.next==null) return head;
+        ListNode t2=head.next;
+        ListNode t1=head;
         
-        ListNode result=new ListNode();
-        ListNode resR=result;
+        ListNode res=head;
         
-        while(head!=null){
+        int count=1;
+        
+        while(head.next.next!=null){
             
-            if(countIndiceNo%2==0){
-                e.add(head.val);
+            ListNode temp=head.next;
+            
+            if(count%2==0){
+                
+                //System.out.println(count + " " + head.val);
+                head.next=head.next.next;
+                
             }else{
-                o.add(head.val);
+                
+                
+                //System.out.println(count + " " + head.val);
+                head.next=head.next.next;
             }
-            head=head.next;
-            countIndiceNo++;
+            
+            count++;
+            head=temp;
         }
         
-        for(Integer ele:o){
-            ListNode temp1=new ListNode(ele);
-            result.next=temp1;
-            result=temp1;
+        
+        //System.out.println(head.next.val);
+        
+        if(count%2==0){
+            ListNode temp2=head.next;
+            head.next=null;
+            head=temp2;
+            head.next=t2;
+        }else{
+           head.next=t2; 
         }
         
-        for(Integer ele:e){
-            ListNode temp2=new ListNode(ele);
-            result.next=temp2;
-            result=temp2;
-        }
         
-        return resR.next;
+        return res;
         
     }
 }

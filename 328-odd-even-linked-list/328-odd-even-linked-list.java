@@ -8,6 +8,15 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
+
+/**
+Note :
+1. When list len is odd, then while loop is going to break at the point when head is at even count (position) node;
+2. When list len is even, then while loop is going to break at the point when head is at odd count (position) node;
+
+
+*/
 class Solution {
     public ListNode oddEvenList(ListNode head) {
         
@@ -42,6 +51,8 @@ class Solution {
         
         //System.out.println(head.next.val);
         
+		// So, if count is even position, then the length of list is odd
+		// if count is odd position, then the length of list is even, (Else condition here)
         if(count%2==0){
             ListNode temp2=head.next;
             head.next=null;

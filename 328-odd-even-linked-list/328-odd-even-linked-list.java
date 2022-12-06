@@ -31,19 +31,7 @@ class Solution {
         while(head.next.next!=null){
             
             ListNode temp=head.next;
-            
-            if(count%2==0){
-                
-                //System.out.println(count + " " + head.val);
-                head.next=head.next.next;
-                
-            }else{
-                
-                
-                //System.out.println(count + " " + head.val);
-                head.next=head.next.next;
-            }
-            
+            head.next=head.next.next;
             count++;
             head=temp;
         }

@@ -12,13 +12,19 @@ class Solution {
     public ListNode mergeNodes(ListNode head) {
         
         int sum=0;
+        
+        //this we will return answer
         ListNode res=head;
         
+        //this pointer will be saving sum values
         ListNode temp=head;
         
+        /*This will remain one step behind the temp and at last will help us
+        to shorten the length of linked list*/
         ListNode prev=new ListNode();
         prev.next=temp;
         
+        //Moving head from 0 to next value.
         head=head.next;
         
         while(head!=null){
@@ -34,6 +40,7 @@ class Solution {
             
             head=head.next;
         }
+        
         
         prev.next=null;
         

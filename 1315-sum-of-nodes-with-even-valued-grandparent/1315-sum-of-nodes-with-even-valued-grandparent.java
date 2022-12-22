@@ -23,7 +23,9 @@ class Solution {
     public int solUtil(TreeNode root,int parent,int grandP){
         
         if(root==null) return 0;
+        
         int ans=0;
+        
         if(grandP%2==0) {
            ans=root.val; 
         }

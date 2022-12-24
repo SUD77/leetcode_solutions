@@ -19,6 +19,6 @@ class Solution {
         
         if(dp[n]!=-1) return dp[n];
         
-        return dp[n]=((2 * solUtil(n-1,dp))%mod + solUtil(n-3,dp)%mod)%mod;
+        return dp[n]=((2 * solUtil(n-1,dp)) %mod + solUtil(n-3,dp) %mod ) %mod;
     }
 }

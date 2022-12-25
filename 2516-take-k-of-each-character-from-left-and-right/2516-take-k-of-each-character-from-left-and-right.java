@@ -1,3 +1,4 @@
+// https://www.youtube.com/watch?v=Wa1uv4CqhKU
 class Solution {
     public int takeCharacters(String s, int k) {
         

@@ -4,8 +4,6 @@ class Solution {
         
         int[] dp=new int[nums.length];
         
-        //Arrays.fill(dp,-1);
-        
         return solUtil(nums,0,dp);
     }
     
@@ -16,8 +14,6 @@ class Solution {
         if(index>=nums.length || nums[index]==0 || dp[index]==-1) return false;
         
         if(dp[index]==1) return true;
-        
-        // int maxReach=index+nums[index];
  
         for(int i=index+nums[index];i>=index+1;i--)
         {

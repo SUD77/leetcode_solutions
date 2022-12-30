@@ -19,6 +19,10 @@ class Solution {
             
             int node=graph[root][i];
             
+            /*
+            - If node is equal to destination, add it in tempList and then, add the answer list in ans. 
+            -After that, remove the destination from tempList. (Backtracking)
+            */
             if(node==graph.length-1){
                 tempList.add(graph.length-1);
                 ans.add(new ArrayList<>(tempList));
@@ -26,10 +30,14 @@ class Solution {
             }
                 
             
+           /*
+           - Calling dfs on neighbours of Root. 
+           - And after dfs operation is completed on neighbour, remove them from tempList (Backtracking)
            
+           */
             if(node!=parent){
                 dfsUtil(node,root,graph,tempList,ans);
-                 tempList.remove(tempList.size()-1);
+                tempList.remove(tempList.size()-1);
             }
         }
     }

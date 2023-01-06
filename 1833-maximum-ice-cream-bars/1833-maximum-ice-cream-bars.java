@@ -5,17 +5,12 @@ class Solution {
         
         int ans=0;
         
-        int i=0;
-        
-        while(coins>0 && i<costs.length){
-        
-            if((coins-costs[i]) >=0) { 
-                coins-=costs[i++];
-                ans++;
-            }else{
-                break;
-            }
+        for(int x:costs){
             
+            if(coins - x >=0){
+                coins-=x;
+                ans++;
+            }
         }
         
         

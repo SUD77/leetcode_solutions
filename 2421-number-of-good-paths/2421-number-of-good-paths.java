@@ -1,3 +1,8 @@
+/*
+
+https://leetcode.com/problems/number-of-good-paths/discuss/2620532/JAVA-UnionFind-Solution-Explanation
+*/
+
 class Solution {
     public int numberOfGoodPaths(int[] vals, int[][] edges) {
         int n = vals.length;

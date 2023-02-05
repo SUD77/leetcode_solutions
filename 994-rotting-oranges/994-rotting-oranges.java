@@ -1,31 +1,31 @@
-//Not my code and logic
-
 class Solution {
     public int orangesRotting(int[][] grid) {
-       
+        
         if(grid==null || grid.length==0) return 0;
+        
         int rows=grid.length;
         int cols=grid[0].length;
         
         Queue<int[]> queue=new LinkedList<>();
         
-        int count_fresh=0;
+        int countFresh=0;
         
-        for(int i=0; i<rows; i++){
-            for(int j=0; j<cols;j++){
-                if(grid[i][j]==2){
-                    queue.offer(new int[]{i,j});
-                }
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<cols;j++){
                 
-                if(grid[i][j]!=0){
-                    count_fresh++;
-                }
+                //if it is rotten, put in queue.
+                if(grid[i][j]==2) queue.offer(new int[]{i,j});
+                
+                //if it is fresh i.e equal to 1, then count it.
+                if(grid[i][j]!=0) countFresh++;
             }
+            
         }
         
-        if(count_fresh==0) return 0;
+        if(countFresh==0) return 0;
+        
         int countMin=0;
-        int cnt=0;
+        int count=0;
         
         int dx[]={0,0,1,-1};
         int dy[]={1,-1,0,0};
@@ -33,7 +33,7 @@ class Solution {
         while(!queue.isEmpty()){
             
             int size=queue.size();
-            cnt+=size;
+            count+=size;
             
             for(int i=0;i<size;i++){
                 
@@ -45,7 +45,9 @@ class Solution {
                     int y=point[1] + dy[j];
                     
                     if(x<0 || y<0 || x>=rows || y>=cols || grid[x][y]==0 || grid[x][y]==2) continue;
+                    
                     grid[x][y]=2;
+                    
                     queue.offer(new int[]{x,y});
                 }
             }
@@ -55,9 +57,6 @@ class Solution {
             }
         }
         
-        return count_fresh==cnt?countMin:-1;
-        
-        
-        
+        return countFresh==count? countMin:-1;
     }
 }

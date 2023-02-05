@@ -1,3 +1,5 @@
+// https://www.youtube.com/watch?v=ThaEDl4e3zs
+
 class Solution {
     public int minCapability(int[] nums, int k) {
         

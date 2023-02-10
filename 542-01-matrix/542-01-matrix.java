@@ -15,9 +15,8 @@ class Solution {
                 if(mat[i][j]==0){
                     q.add(new Node(i,j,0));
                     vis[i][j]=true;
-                }else{
-                    vis[i][j]=false;
                 }
+               
             }
         }
         

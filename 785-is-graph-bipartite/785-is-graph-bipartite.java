@@ -7,29 +7,24 @@ class Solution {
         Arrays.fill(color,-1);
         
         for(int i=0;i<n;i++){
-            
             if(color[i]==-1){
-                
-                Queue<Integer> q=new LinkedList<>();
-                q.add(i);
                 color[i]=0;
-                
-                while(!q.isEmpty()){
-                    
-                    int tempNode=q.poll();
-                    
-                    for(int neighbour:graph[tempNode]){
-                        
-                        if(color[neighbour]==-1){
-                            color[neighbour]=1-color[tempNode];
-                            q.add(neighbour);
-                        }else if(color[neighbour]==color[tempNode]) return false;
-                    }
-                }
+                if(!dfs(graph,i,color)) return false;
             }
         }
         
         return true;
+    }
+    
+    public boolean dfs(int[][] graph,int node,int[] color){
         
+        for(int neighbour:graph[node]){
+            if(color[neighbour]==-1){
+                color[neighbour]=1-color[node];
+                if(!dfs(graph,neighbour,color)) return false;
+            }else if(color[neighbour]==color[node]) return false;
+        }
+        
+        return true;
     }
 }

@@ -4,45 +4,32 @@ class Solution {
         int n=graph.length;
         
         int[] color=new int[n];
-        
         Arrays.fill(color,-1);
-        
         
         for(int i=0;i<n;i++){
             
             if(color[i]==-1){
                 
-                if(!bfs(graph,i,color)) return false;
-            }
-        }
-        
-        return true;
-    }
-    
-    public boolean bfs(int[][] graph,int node,int[] color){
-        
-        
-        Queue<Integer> q=new LinkedList<>();
-        
-        q.add(node);
-        color[node]=1;
-        
-        while(!q.isEmpty()){
-            
-            int tempNode=q.poll();
-            
-            for(int x:graph[tempNode]){
+                Queue<Integer> q=new LinkedList<>();
+                q.add(i);
+                color[i]=0;
                 
-                if(color[x]==-1){
-                    color[x]=1-color[tempNode];
-                    q.add(x);
-                }else if(color[x]==color[tempNode]){
-                    return false;
+                while(!q.isEmpty()){
+                    
+                    int tempNode=q.poll();
+                    
+                    for(int neighbour:graph[tempNode]){
+                        
+                        if(color[neighbour]==-1){
+                            color[neighbour]=1-color[tempNode];
+                            q.add(neighbour);
+                        }else if(color[neighbour]==color[tempNode]) return false;
+                    }
                 }
             }
-            
         }
         
         return true;
-    } 
+        
+    }
 }

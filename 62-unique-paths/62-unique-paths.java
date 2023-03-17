@@ -3,25 +3,26 @@ class Solution {
         
         int[][] dp=new int[m][n];
         
-        for(int[] x:dp){
-            Arrays.fill(x,-1);
+        dp[m-1][n-1]=1;
+        
+        //filling up last row
+        for(int i=0;i<n;i++){
+            dp[m-1][i]=1;
         }
         
-        return solUtil(m,n,0,0,dp);
+        //filling up last column
+        for(int i=0;i<m;i++){
+            dp[i][n-1]=1;
+        }
+        
+        for(int i=m-2;i>=0;i--){
+            for(int j=n-2;j>=0;j--){
+                dp[i][j]=dp[i+1][j] + dp[i][j+1];
+            }
+        }
+        
+        return dp[0][0];
     }
     
-    public int solUtil(int m,int n,int i,int j,int[][] dp){
-        
-        if(i>=m || j>=n ) return 0;
-        
-        if(i==m-1 && j==n-1) return 1;
-        
-        if(dp[i][j]!=-1) return dp[i][j];
-        
-        int down=solUtil(m,n,i,j+1,dp);
-        int left=solUtil(m,n,i+1,j,dp);
-       
-        
-        return dp[i][j]=down+left;
-    }
+    
 }

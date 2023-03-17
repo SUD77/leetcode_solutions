@@ -1,3 +1,5 @@
+// TC - O(mn)  SC - O(m+n)+ O(mn)
+
 class Solution {
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
         

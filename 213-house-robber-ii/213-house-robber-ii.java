@@ -3,27 +3,27 @@ class Solution {
         
         if(nums.length==1) return nums[0];
         
-        int[] dp=new int[nums.length];
-        Arrays.fill(dp,-1);
-        
-        int[] dp2=new int[nums.length];
-        Arrays.fill(dp2,-1);
-        
         int n=nums.length;
         
-        return Math.max(solUtil(nums,n-1,1,dp),solUtil(nums,n-2,0,dp2));
+        int[] dp1=new int[n];
+        int[] dp2=new int[n];
+        
+        Arrays.fill(dp1,-1);
+        Arrays.fill(dp2,-1);
+        
+        return Math.max(solUtil(n-1,1,nums,dp1),solUtil(n-2,0,nums,dp2));
     }
     
-    public int solUtil(int[] nums,int start,int end,int[] dp){
+    public int solUtil(int start,int end,int[] nums,int[] dp){
         
-       
-        if(start==end) return dp[start]=nums[end];
+        if(start==end) return nums[end];
+        
         if(start<end) return 0;
         
         if(dp[start]!=-1) return dp[start];
         
-        int pick=nums[start] + solUtil(nums,start-2,end,dp);
-        int notPick=solUtil(nums,start-1,end,dp);
+        int pick=nums[start] + solUtil(start-2,end,nums,dp);
+        int notPick=solUtil(start-1,end,nums,dp);
         
         return dp[start]=Math.max(pick,notPick);
     }

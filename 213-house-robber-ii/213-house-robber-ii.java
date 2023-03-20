@@ -45,17 +45,5 @@ class Solution {
         return Math.max(dp1[n-1],dp2[n-2]);
     }
     
-//     public int solUtil(int start,int end,int[] nums,int[] dp){
-        
-//         if(start==end) return nums[end];
-        
-//         if(start<end) return 0;
-        
-//         if(dp[start]!=-1) return dp[start];
-        
-//         int pick=nums[start] + solUtil(start-2,end,nums,dp);
-//         int notPick=solUtil(start-1,end,nums,dp);
-        
-//         return dp[start]=Math.max(pick,notPick);
-//     }
+
 }

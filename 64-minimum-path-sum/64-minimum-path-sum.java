@@ -6,25 +6,28 @@ class Solution {
         
         int[][] dp=new int[m][n];
         
-        for(int[] x:dp){
-            Arrays.fill(x,-1);
+        
+        
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+            
+                if(i==0 && j==0) {
+                    dp[0][0]=grid[0][0];
+                }else{
+                    
+                    int curr=grid[i][j];
+                    int left=Integer.MAX_VALUE;
+                    int up=Integer.MAX_VALUE;
+                    
+                    if(j>=1) left=dp[i][j-1];
+                    if(i>=1) up=dp[i-1][j];
+        
+                    dp[i][j]=curr+Math.min(left,up);
+                }
+            }
         }
         
-        return solUtil(0,0,m,n,grid,dp);
+        return dp[m-1][n-1];
     }
     
-    public int solUtil(int i,int j,int m,int n,int[][] grid,int[][] dp){
-        
-        if(i==m-1 && j==n-1) return grid[i][j];
-        if(i >=m || j>=n) return Integer.MAX_VALUE;
-        
-        if(dp[i][j]!=-1) return dp[i][j];
-    
-        int curr=grid[i][j];
-        
-        int left=solUtil(i,j+1,m,n,grid,dp);
-        int down=solUtil(i+1,j,m,n,grid,dp);
-        
-        return dp[i][j]=curr+Math.min(left,down);
-    }
 }

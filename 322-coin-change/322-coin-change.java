@@ -5,35 +5,34 @@ class Solution {
         
         int[][] dp=new int[n][amount+1];
         
-        
-        //for index==0. i.e our base case. 
-        for(int i=0;i<=amount;i++){
-            
-            if(i%coins[0]==0) dp[0][i]=i/coins[0];
-            else dp[0][i]=(int)Math.pow(10,9);
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
         }
         
-        
-        for(int i=1;i<n;i++ ){
-            
-            for(int j=0;j<=amount;j++){
-                
-                int notTake=dp[i-1][j]; 
-                
-                int take=(int)Math.pow(10,9);
-                if(coins[i]<=j){
-                    take=1+dp[i][j-coins[i]];
-                }
-                
-                dp[i][j]=Math.min(take,notTake);
-            }
-        }
-        
-        if(dp[n-1][amount]!=(int)Math.pow(10,9))
-            return dp[n-1][amount];
+        if(solUtil(coins,amount,n-1,dp)!=(int)(Math.pow(10,9)))
+            return solUtil(coins,amount,n-1,dp);
         
         return -1;
     }
     
-   
+    public int solUtil(int[] coins,int amount,int ind,int[][] dp){
+        
+        
+        if(ind==0){
+            if(amount%coins[0]==0) return amount/coins[0];
+            else return (int)(Math.pow(10,9));
+        }
+        
+        if(dp[ind][amount]!=-1) return dp[ind][amount]; 
+        
+        int notPick=solUtil(coins,amount,ind-1,dp);
+        
+        int pick=Integer.MAX_VALUE;
+        
+        if(amount>=coins[ind]){
+            pick=1+solUtil(coins,amount-coins[ind],ind,dp);
+        }
+        
+        return dp[ind][amount]=Math.min(pick,notPick);
+    }
 }

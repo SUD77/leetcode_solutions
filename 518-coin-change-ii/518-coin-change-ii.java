@@ -5,32 +5,29 @@ class Solution {
         
         int[][] dp=new int[n][amount+1];
         
-        for(int[] x:dp){
-            Arrays.fill(x,-1);    
+        for(int i=0;i<=amount;i++){
+            if(i%coins[0]==0) dp[0][i]=1;
+            else dp[0][i]=0;
         }
         
-        return solUtil(n-1,amount,coins,dp);
+        for(int i=1;i<n;i++){
+            
+            for(int j=0;j<=amount;j++){
+                
+                int notPick=dp[i-1][j]; 
+        
+                int pick=0;
+
+                if(j >=coins[i]){
+                    pick=dp[i][j-coins[i]]; 
+                }
+
+                dp[i][j]=pick+notPick;
+                
+            }
+        }
+        
+        return dp[n-1][amount];
     }
     
-    public int solUtil(int ind,int amount,int[] coins,int[][] dp){
-        
-        if(ind==0){
-            
-            if(amount%coins[ind]==0) return 1;
-            else return 0;
-        }
-        
-        if(dp[ind][amount]!=-1) return dp[ind][amount]; 
-        
-        int notPick=solUtil(ind-1,amount,coins,dp);
-        
-        int pick=0;
-        
-        if(amount >=coins[ind]){
-            pick=solUtil(ind,amount-coins[ind],coins,dp);
-        }
-        
-        return dp[ind][amount]=pick+notPick;
-        
-    }
 }

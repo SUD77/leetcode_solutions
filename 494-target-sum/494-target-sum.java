@@ -16,10 +16,16 @@ class Solution {
         
         int newTarget=(totalSum-target)/2;
         
-        return solUtil(nums,newTarget,n-1);
+        int[][] dp=new int[n][newTarget+1];
+        
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
+        }
+        
+        return solUtil(nums,newTarget,n-1,dp);
     }
     
-    public int solUtil(int[] nums,int target,int index){
+    public int solUtil(int[] nums,int target,int index,int[][] dp){
         
         if(index==0){
             
@@ -28,14 +34,16 @@ class Solution {
             else return 0;
         }
         
-        int notPick=solUtil(nums,target,index-1);
+        if(dp[index][target]!=-1) return dp[index][target]; 
+        
+        int notPick=solUtil(nums,target,index-1,dp);
         
         int pick=0;
         if(target>=nums[index]){
-            pick=solUtil(nums,target-nums[index],index-1);
+            pick=solUtil(nums,target-nums[index],index-1,dp);
         }
         
-        return pick+notPick;
+        return dp[index][target]=pick+notPick;
         
     }
 }

@@ -3,55 +3,39 @@ class Solution {
         
         int n=nums.length;
         
-       
-       
-        
         int totalSum=0;
         
         for(int x:nums){
             totalSum+=x;
         }
         
-        if(totalSum-target<0) return 0;
+        if(totalSum-target < 0 ) return 0;
         
         //newTarget can't be odd, so if this diff is not divisible by 2, return 0;
-        if((totalSum-target)%2==1) return 0;
+        if((totalSum-target)%2!=0) return 0;
+        
         int newTarget=(totalSum-target)/2;
         
-        //Making dp  array with newTarget
-        
-         int dp[][]=new int[n][newTarget+1];
-        
-        for(int[] x:dp){
-             Arrays.fill(x,-1);
-        }
-        
-        
-        
-        return solUtil(n-1,nums,newTarget,dp);
+        return solUtil(nums,newTarget,n-1);
     }
     
-    public int solUtil(int index,int[] nums,int target,int[][] dp){
- 
+    public int solUtil(int[] nums,int target,int index){
+        
         if(index==0){
             
             if(target==0 && nums[0]==0) return 2;
-            
-            if(target==0 | target==nums[0]) return 1;
-            
-            return 0;
+            else if(target==0 || target==nums[0]) return 1;
+            else return 0;
         }
         
-         if(dp[index][target]!=-1) return dp[index][target];
+        int notPick=solUtil(nums,target,index-1);
         
-        int notTaken=solUtil(index-1,nums,target,dp);
-        
-        int taken=0;
-        
-        if(nums[index]<=target){
-            taken=solUtil(index-1,nums,target-nums[index],dp);
+        int pick=0;
+        if(target>=nums[index]){
+            pick=solUtil(nums,target-nums[index],index-1);
         }
         
-        return dp[index][target]=taken+notTaken;
+        return pick+notPick;
+        
     }
 }

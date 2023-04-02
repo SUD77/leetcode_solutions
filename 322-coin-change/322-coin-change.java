@@ -1,3 +1,7 @@
+//Space optimization
+// TC - O(n*amount)
+// SC - O(amount)
+
 class Solution {
     public int coinChange(int[] coins, int amount) {
        

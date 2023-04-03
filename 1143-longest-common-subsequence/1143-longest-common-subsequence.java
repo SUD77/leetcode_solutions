@@ -1,6 +1,6 @@
-//Tabulation 
+//Sapce Optimization
 // TC - O(len1 * len2)
-// SC - O(len1 * len2)
+// SC - O(len2)
 
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
@@ -8,32 +8,34 @@ class Solution {
         int len1=text1.length();
         int len2=text2.length();
         
-        int[][] dp=new int[len1+1][len2+1];
+        int[] prev=new int[len2+1];
+        
         
         for(int i=0;i<=len2;i++){
-            dp[len1][i]=0;
+            prev[i]=0;
         }
         
-        for(int j=0;j<=len1;j++){
-            dp[j][len2]=0;
-        }
+        prev[len2]=0;
         
         for(int i=len1-1;i>=0;i--){
+            
+            int[] curr=new int[len2+1];
             
             for(int j=len2-1;j>=0;j--){
                 
                 if(text1.charAt(i)==text2.charAt(j)){
-                    dp[i][j]=1+dp[i+1][j+1]; 
+                    curr[j]=1+prev[j+1]; 
                 }else{
-                    dp[i][j]= Math.max(dp[i+1][j],dp[i][j+1]); 
+                    curr[j]= Math.max(prev[j],curr[j+1]); 
                 }
 
                 
             }
+            prev=curr;
         }
         
         
-        return dp[0][0]; 
+        return prev[0]; 
     }
 
 }

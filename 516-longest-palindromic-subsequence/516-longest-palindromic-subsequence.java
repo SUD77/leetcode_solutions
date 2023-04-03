@@ -11,23 +11,31 @@ class Solution {
         
         int[][] dp=new int[len1+1][len2+1];
         
-        for(int[] x:dp){
-            Arrays.fill(x,-1);    
+        for(int i=0;i<=len2;i++){
+            dp[0][i]=0;
         }
         
-        return solUtil(s,s2,len1,len2,dp);
+        for(int i=0;i<=len1;i++){
+            dp[i][0]=0;
+        }
+        
+        
+        for(int i=1;i<=len1;i++){
+            
+            for(int j=1;j<=len2;j++){
+                
+                if(s.charAt(i-1)==s2.charAt(j-1)){
+                    dp[i][j]= 1+ dp[i-1][j-1]; 
+                }else{
+                    dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
+                }
+
+                
+            }
+        }
+        
+        return dp[len1][len2];
     }
     
-    public int solUtil(String s1,String s2,int i,int j,int[][] dp){
-        
-        if(i<=0 || j<=0) return 0;
-        
-        if(dp[i][j]!=-1) return dp[i][j];
-        
-        if(s1.charAt(i-1)==s2.charAt(j-1)){
-            return 1+solUtil(s1,s2,i-1,j-1,dp);
-        }
-        
-        return dp[i][j]=Math.max(solUtil(s1,s2,i-1,j,dp),solUtil(s1,s2,i,j-1,dp));
-    }
+    
 }

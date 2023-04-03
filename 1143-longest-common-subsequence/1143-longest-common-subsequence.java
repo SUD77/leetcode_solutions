@@ -1,30 +1,39 @@
+//Tabulation 
+// TC - O(len1 * len2)
+// SC - O(len1 * len2)
+
 class Solution {
     public int longestCommonSubsequence(String text1, String text2) {
         
         int len1=text1.length();
         int len2=text2.length();
         
-        int[][] dp=new int[len1][len2];
+        int[][] dp=new int[len1+1][len2+1];
         
-        for(int[] x:dp){
-            Arrays.fill(x,-1);
+        for(int i=0;i<=len2;i++){
+            dp[len1][i]=0;
         }
         
-        return solUtil(text1,text2,0,0,dp);
+        for(int j=0;j<=len1;j++){
+            dp[j][len2]=0;
+        }
+        
+        for(int i=len1-1;i>=0;i--){
+            
+            for(int j=len2-1;j>=0;j--){
+                
+                if(text1.charAt(i)==text2.charAt(j)){
+                    dp[i][j]=1+dp[i+1][j+1]; 
+                }else{
+                    dp[i][j]= Math.max(dp[i+1][j],dp[i][j+1]); 
+                }
+
+                
+            }
+        }
+        
+        
+        return dp[0][0]; 
     }
 
-    public int solUtil(String text1, String text2,int i,int j,int[][] dp){
-        
-        if(i==text1.length() || j==text2.length()){
-            return 0;
-        }
-        
-        if(dp[i][j]!=-1) return dp[i][j]; 
-        
-        if(text1.charAt(i)==text2.charAt(j)){
-            return 1+solUtil(text1,text2,i+1,j+1,dp);
-        }
-        
-        return dp[i][j]= Math.max(solUtil(text1,text2,i+1,j,dp),solUtil(text1,text2,i,j+1,dp)); 
-    }
 }

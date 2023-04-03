@@ -1,14 +1,19 @@
+//Memoization
+// TC - O(len1 * len2)
+// SC - O(len1+ len2)
+
 class Solution {
     public int minInsertions(String s) {
-       
-        //Creating reverse of s
-        StringBuffer tempS=new StringBuffer(s);
-        tempS.reverse();
-        String s2=tempS.toString();
-        //end
+        return s.length() - lps(s);
+    }
+    
+    public int lps(String s){
+        
+        StringBuilder sb=new StringBuilder(s);
+        String s2=sb.reverse().toString();
         
         int len1=s.length();
-        int len2=s2.length();
+        int len2=s.length();
         
         int[][] dp=new int[len1+1][len2+1];
         
@@ -16,20 +21,21 @@ class Solution {
             Arrays.fill(x,-1);
         }
         
-        return len1-solUtil(s,s2,len1-1,len2-1,dp);
+        return solUtil(s,s2,len1,len2,dp);
     }
     
-    public int solUtil(String s1,String s2,int idx1,int idx2,int[][] dp){
+    public int solUtil(String s1,String s2,int i,int j,int[][] dp){
         
-        if(idx1<0 || idx2<0) return 0;
+        if(i<=0 || j<=0) return 0;
         
-        if(dp[idx1][idx2]!=-1) return dp[idx1][idx2];
+        if(dp[i][j]!=-1) return dp[i][j];
         
-        if(s1.charAt(idx1)==s2.charAt(idx2)){
-            return dp[idx1][idx2]=1+solUtil(s1,s2,idx1-1,idx2-1,dp);
+        if(s1.charAt(i-1)==s2.charAt(j-1)){
+            return dp[i][j]=1+solUtil(s1,s2,i-1,j-1,dp);
+        }else{
+            return dp[i][j]=Math.max(solUtil(s1,s2,i-1,j,dp),solUtil(s1,s2,i,j-1,dp));
         }
         
-        return dp[idx1][idx2]=Math.max(solUtil(s1,s2,idx1-1,idx2,dp),solUtil(s1,s2,idx1,idx2-1,dp));
+        
     }
-    
 }

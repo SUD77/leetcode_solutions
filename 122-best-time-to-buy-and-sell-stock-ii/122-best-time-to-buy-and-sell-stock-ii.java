@@ -3,31 +3,28 @@ class Solution {
         
         int n=prices.length;
         
-        int[] ahead=new int[2];
-        int[] cur=new int[2];
+        int[][] dp=new int[n+1][2];
         
-        ahead[0]=ahead[1]=0;
-        
-        for(int i=n-1;i>=0;i--){
-            
-            for(int buy=0;buy<=1;buy++){
-                
-                int profit=0;
-                
-                 if(buy==1){
-            
-                    profit=Math.max(-prices[i] + ahead[0], ahead[1]);
-                }else{
-            
-                    profit=Math.max(prices[i] + ahead[1],ahead[0]);
-                }
-                cur[buy]=profit;
-            }
-            ahead=cur;
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
         }
         
-        return ahead[1];
+        return solUtil(prices,0,1,dp);
     }
     
-   
+    public int solUtil(int[] prices,int index,int buy,int[][] dp){
+        
+        if(index==prices.length) return 0;
+        
+        if(dp[index][buy]!=-1) return dp[index][buy];
+        
+        int profit=0;
+        if(buy==1){
+            profit= Math.max(- prices[index] + solUtil(prices,index+1,0,dp), solUtil(prices,index+1,1,dp));
+        }else{
+            profit= Math.max( prices[index] + solUtil(prices,index+1,1,dp), solUtil(prices,index+1,0,dp));
+        }
+        
+        return dp[index][buy]=profit;
+    }
 }

@@ -1,52 +1,36 @@
+
+
 class Solution {
-    public int lengthOfLIS(int[] arr) {
+    public int lengthOfLIS(int[] nums) {
         
-        int n=arr.length;
+        int n=nums.length;
         
-        int[] dp=new int[n];
-    Arrays.fill(dp,1);
-    int[] hash=new int[n];
-    Arrays.fill(hash,1);
-    
-    for(int i=0; i<=n-1; i++){
+        int[][] dp=new int[n][n];
         
-        hash[i] = i; // initializing with current index
-        for(int prev_index = 0; prev_index <=i-1; prev_index ++){
-            
-            if(arr[prev_index]<arr[i] && 1 + dp[prev_index] > dp[i]){
-                dp[i] = 1 + dp[prev_index];
-                hash[i] = prev_index;
-            }
+        
+        for(int[] x:dp){
+            Arrays.fill(x,Integer.MIN_VALUE);
         }
+                
+        return solUtil(nums,-1,0,dp);
     }
     
-    int ans = -1;
-    int lastIndex =-1;
-    
-    for(int i=0; i<=n-1; i++){
-        if(dp[i]> ans){
-            ans = dp[i];
-            lastIndex = i;
+    public int solUtil(int[] nums,int prevIndex,int index,int[][] dp){
+        
+        if(index==nums.length) return 0;
+        
+        if(dp[prevIndex+1][index]!=Integer.MIN_VALUE) return dp[prevIndex+1][index];
+        
+        int notPick=solUtil(nums,prevIndex,index+1,dp);
+        
+        int pick=0;
+        if(prevIndex==-1){
+            pick=1+solUtil(nums,index,index+1,dp);
+        }else if(nums[index]>nums[prevIndex]){
+            pick=1+solUtil(nums,index,index+1,dp);
         }
-    }
-    
-    ArrayList<Integer> temp=new ArrayList<>();
-    temp.add(arr[lastIndex]);
-    
-    while(hash[lastIndex] != lastIndex){ // till not reach the initialization value
-        lastIndex = hash[lastIndex];
-        temp.add(arr[lastIndex]);    
-    }
-    
-    // reverse the array 
-    
-    System.out.print("The subsequence elements are ");
-    
-    for(int i=temp.size()-1; i>=0; i--){
-        System.out.print(temp.get(i)+" ");
-    }
-    System.out.println();
-    
-    return ans;
+        
+        return dp[prevIndex+1][index]=Math.max(pick,notPick);
+        
     }
 }

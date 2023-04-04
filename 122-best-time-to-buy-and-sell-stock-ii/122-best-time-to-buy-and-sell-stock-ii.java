@@ -1,3 +1,6 @@
+//Memoization
+//TC- O(n*2) 
+//SC - O(n * 2) + O(n)
 class Solution {
     public int maxProfit(int[] prices) {
         

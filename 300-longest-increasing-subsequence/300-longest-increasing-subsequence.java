@@ -19,7 +19,7 @@ class Solution {
         
         if(index==nums.length) return 0;
         
-        if(dp[prevIndex+1][index]!=Integer.MIN_VALUE) return dp[prevIndex+1][index];
+        if(dp[index][prevIndex+1]!=Integer.MIN_VALUE) return dp[index][prevIndex+1];
         
         int notPick=solUtil(nums,prevIndex,index+1,dp);
         
@@ -30,7 +30,7 @@ class Solution {
             pick=1+solUtil(nums,index,index+1,dp);
         }
         
-        return dp[prevIndex+1][index]=Math.max(pick,notPick);
+        return dp[index][prevIndex+1]=Math.max(pick,notPick);
         
     }
 }

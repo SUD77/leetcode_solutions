@@ -1,48 +1,36 @@
-//Tabulation
+//Space Optimization
 //TC- O(n*2) 
-//SC - O(n * 2) 
+//SC - O(1) 
 class Solution {
     public int maxProfit(int[] prices) {
         
         int n=prices.length;
         
-        int[][] dp=new int[n+1][2];
+        int[] prev =new int[2];
         
-        dp[n][0]=0;
-        dp[n][1]=0;
+        prev[0]=0;
+        prev[1]=0;
         
         for(int i=n-1;i>=0;i--){
+            
+            int[] curr=new int[2];
             
             for(int j=0;j<2;j++){
                 
                 int profit=0;
                 
                 if(j==1){
-                    profit= Math.max(- prices[i] + dp[i+1][0], dp[i+1][1]); 
+                    profit= Math.max(- prices[i] + prev[0], prev[1]); 
                 }else{
-                    profit= Math.max( prices[i] + dp[i+1][1], dp[i+1][0]);
+                    profit= Math.max( prices[i] + prev[1], prev[0]);
                 }
 
-                    dp[i][j]=profit;
+                    curr[j]=profit;
             }
+            prev=curr;
         }
         
-        return dp[0][1]; 
+        return prev[1]; 
     }
     
-//     public int solUtil(int[] prices,int index,int buy,int[][] dp){
-        
-//         if(index==prices.length) return 0;
-        
-//         if(dp[index][buy]!=-1) return dp[index][buy];
-        
-//         int profit=0;
-//         if(buy==1){
-//             profit= Math.max(- prices[index] + solUtil(prices,index+1,0,dp), solUtil(prices,index+1,1,dp));
-//         }else{
-//             profit= Math.max( prices[index] + solUtil(prices,index+1,1,dp), solUtil(prices,index+1,0,dp));
-//         }
-        
-//         return dp[index][buy]=profit;
-//     }
 }

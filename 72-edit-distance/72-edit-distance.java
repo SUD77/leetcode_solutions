@@ -6,28 +6,32 @@ class Solution {
         
         int[][] dp=new int[len1+1][len2+1];
         
-        for(int[] x:dp){
-            Arrays.fill(x,-1);
+        for(int i=0;i<=len2;i++){
+            dp[0][i]=i;
         }
         
-        return solUtil(word1,word2,len1,len2,dp);
+        for(int i=0;i<=len1;i++){
+            dp[i][0]=i;
+        }
+        
+        for(int i=1;i<=len1;i++){
+            
+            for(int j=1;j<=len2;j++){
+                
+                if(word1.charAt(i-1)==word2.charAt(j-1)){
+                    dp[i][j]=dp[i-1][j-1];
+                }else{
+
+                    int insert=1+dp[i][j-1]; 
+                    int delete=1+dp[i-1][j]; 
+                    int replace=1+dp[i-1][j-1]; 
+
+                    dp[i][j]=Math.min(insert,Math.min(delete,replace));
+                }
+            }
+        }
+        
+        return dp[len1][len2];
     }
     
-    public int solUtil(String word1, String word2,int i,int j,int[][] dp){
-        
-        if(i==0) return j;
-        if(j==0) return i;
-        
-        if(dp[i][j]!=-1) return dp[i][j];
-            
-        if(word1.charAt(i-1)==word2.charAt(j-1)){
-            return dp[i][j]=solUtil(word1,word2,i-1,j-1,dp);
-        }
-        
-        int insert=1+solUtil(word1,word2,i,j-1,dp);
-        int delete=1+solUtil(word1,word2,i-1,j,dp);
-        int replace=1+solUtil(word1,word2,i-1,j-1,dp);
-        
-        return dp[i][j]=Math.min(insert,Math.min(delete,replace));
-    }
 }

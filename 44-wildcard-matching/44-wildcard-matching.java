@@ -4,54 +4,58 @@ class Solution {
         int len1=s.length();
         int len2=p.length();
         
-        int[][] dp=new int[len1][len2];
-        
+        int[][] dp=new int[len1+1][len2+1];
         for(int[] x:dp){
             Arrays.fill(x,-1);
         }
         
-        return solUtil(s,p,len1-1,len2-1,dp)==1;
+        return solUtil(s,p,len1,len2,dp)==1;
+        
     }
     
-    public int solUtil(String s,String p,int index1,int index2,int[][] dp){
+    public int solUtil(String s,String p,int i,int j,int[][] dp){
         
-        //when p is exhausted
-        if(index1<0 && index2<0) return 1;
-        if(index1>=0 && index2<0) return 0;
+        if(i==0 && j==0) return 1;
         
-       
+        //It means there are some comparisons still left as s in not empty
+        if(i>=1 && j==0) return 0;
         
-        //when s is exhausted but p has not, so if p has all stars, true. 
-        if(index1<0 && index2>=0){
+        
+        /*
+        This means, s is exhausted and p has still some characters left.
+        So, when can p match with s that is a empty string now.
+        Only when p has all *.
+        */
+        if(i==0 && j>=1){
             
-            for(int i=0;i<=index2;i++){
-                if(p.charAt(i)!='*') return 0;
+            for(int temp=0;temp<j;temp++){
+                
+                if(p.charAt(temp)!='*') return 0;
             }
             return 1;
         }
         
-        if(dp[index1][index2]!=-1) return dp[index1][index2];
+        if(dp[i][j]!=-1) return dp[i][j];
         
-        if(s.charAt(index1)==p.charAt(index2) || p.charAt(index2)=='?'){
-            return dp[index1][index2]= solUtil(s,p,index1-1,index2-1,dp);
+        if(s.charAt(i-1)==p.charAt(j-1) || p.charAt(j-1)=='?'){
+            return dp[i][j]=solUtil(s,p,i-1,j-1,dp);
         }
         
-        if(p.charAt(index2)=='*'){
+        if(p.charAt(j-1)=='*'){
             
-            // fist case is if i take * as empty
-            //second case we match it to letters of s.
+            // First case : If in p, we dont consider '*'
+            // Second case : If we match all characters of s, to * in p at ith position
+            int skipStar=solUtil(s,p,i,j-1,dp);
+            int notSkipStar=solUtil(s,p,i-1,j,dp);
             
-            int takeStarEmpty= solUtil(s,p,index1,index2-1,dp);
-            int takeStarNotEmpty=solUtil(s,p,index1-1,index2,dp);  
-            
-            if(takeStarEmpty==0 && takeStarNotEmpty==0){
-                return dp[index1][index2]=0;
+            if(skipStar==0 && notSkipStar==0){
+                return dp[i][j]=0;
             }else{
-                 return dp[index1][index2]=1; 
+                return dp[i][j]=1;
             }
             
         }
         
-        return dp[index1][index2]=0;
+        return 0;
     }
 }

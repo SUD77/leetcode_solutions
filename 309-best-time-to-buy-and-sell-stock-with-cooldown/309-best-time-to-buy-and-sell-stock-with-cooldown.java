@@ -8,28 +8,22 @@ class Solution {
         for(int[] x:dp){
             Arrays.fill(x,-1);
         }
-        
-        return solUtil(prices,n,0,1,dp);
+        return solUtil(prices,0,1,dp);
     }
     
-     public int solUtil(int[] prices,int n,int index,int buy,int[][] dp){
+    public int solUtil(int[] prices,int i,int buy,int[][] dp){
         
-        if(index>=n) return 0;
+        if(i>=prices.length) return 0;
         
-        if(dp[index][buy]!=-1) return dp[index][buy];
-         
+        if(dp[i][buy]!=-1) return dp[i][buy];
+        
         int profit=0;
-        
         if(buy==1){
-            
-            profit=Math.max(-prices[index] + solUtil(prices,n,index+1,0,dp), solUtil(prices,n,index+1,1,dp));
-            
+            profit=Math.max(-prices[i] + solUtil(prices,i+1,0,dp),solUtil(prices,i+1,1,dp));
         }else{
-            
-            profit=Math.max(prices[index] + solUtil(prices,n,index+2,1,dp),solUtil(prices,n,index+1,0,dp));
+            profit=Math.max(prices[i] + solUtil(prices,i+2,1,dp),solUtil(prices,i+1,0,dp));
         }
         
-        
-        return dp[index][buy]=profit;
+        return dp[i][buy]=profit;
     }
 }

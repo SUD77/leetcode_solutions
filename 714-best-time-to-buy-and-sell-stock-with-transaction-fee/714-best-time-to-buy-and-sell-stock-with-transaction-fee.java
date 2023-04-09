@@ -1,8 +1,6 @@
 class Solution {
     public int maxProfit(int[] prices, int fee) {
-        
-        
-       int n=prices.length;
+        int n=prices.length;
         
         int[][] dp=new int[n+1][2];
         
@@ -10,26 +8,24 @@ class Solution {
             Arrays.fill(x,-1);
         }
         
-        return solUtil(prices,n,0,1,fee,dp);
+        return solUtil(prices,0,1,fee,dp);
     }
     
-    public int solUtil(int[] prices,int n,int index,int buy,int fee,int[][] dp){
+    public int solUtil(int[] prices,int i,int buy,int fee,int[][] dp){
         
-        if(index==n) return 0;
+        //if(fee==0) return 0;
+        if(i==prices.length) return 0;
+    
+        if(dp[i][buy]!=-1) return dp[i][buy];
         
-        if(dp[index][buy]!=-1) return dp[index][buy];
-            
         int profit=0;
         
         if(buy==1){
-            
-            profit=Math.max(-prices[index] + solUtil(prices,n,index+1,0,fee,dp), solUtil(prices,n,index+1,1,fee,dp));
+            profit=Math.max(-prices[i]+solUtil(prices,i+1,0,fee,dp),solUtil(prices,i+1,1,fee,dp));
         }else{
-            
-            profit=Math.max(prices[index]-fee + solUtil(prices,n,index+1,1,fee,dp),solUtil(prices,n,index+1,0,fee,dp));
+             profit=Math.max(prices[i]-fee+solUtil(prices,i+1,1,fee,dp),solUtil(prices,i+1,0,fee,dp));
         }
         
-        
-        return dp[index][buy]=profit;
+        return dp[i][buy]=profit;
     }
 }

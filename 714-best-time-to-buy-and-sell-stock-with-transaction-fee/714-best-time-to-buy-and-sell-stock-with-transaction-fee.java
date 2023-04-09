@@ -4,28 +4,28 @@ class Solution {
         
         int[][] dp=new int[n+1][2];
         
-        for(int[] x:dp){
-            Arrays.fill(x,-1);
+        for(int i=n;i>=0;i--){
+            
+            for(int buy=0;buy<2;buy++){
+                
+                if(i==prices.length) dp[i][buy]=0;
+                else{
+                    int profit=Integer.MIN_VALUE;
+
+                    if(buy==1){
+                        profit=Math.max(-prices[i]+ dp[i+1][0], dp[i+1][1]);
+                    }else{
+                         profit=Math.max(prices[i]-fee+ dp[i+1][1], dp[i+1][0]); 
+                    }
+
+                    dp[i][buy]=profit;
+                }
+                
+            }
+            
         }
         
-        return solUtil(prices,0,1,fee,dp);
+        return dp[0][1]; 
     }
     
-    public int solUtil(int[] prices,int i,int buy,int fee,int[][] dp){
-        
-        //if(fee==0) return 0;
-        if(i==prices.length) return 0;
-    
-        if(dp[i][buy]!=-1) return dp[i][buy];
-        
-        int profit=0;
-        
-        if(buy==1){
-            profit=Math.max(-prices[i]+solUtil(prices,i+1,0,fee,dp),solUtil(prices,i+1,1,fee,dp));
-        }else{
-             profit=Math.max(prices[i]-fee+solUtil(prices,i+1,1,fee,dp),solUtil(prices,i+1,0,fee,dp));
-        }
-        
-        return dp[i][buy]=profit;
-    }
 }

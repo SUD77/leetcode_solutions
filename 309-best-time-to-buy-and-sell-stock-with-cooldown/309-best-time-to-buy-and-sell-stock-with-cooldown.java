@@ -1,6 +1,6 @@
-//tabulation
+//Space
 // TC - O(n*2)
-//SC - O(n*2)
+//SC - O(2)
 
 
 class Solution {
@@ -8,29 +8,35 @@ class Solution {
         
         int n=prices.length;
         
-        int[][] dp=new int[n+2][2];  //took size n+2 as, i is going till i+2
+        int[] prev=new int[2];  //took size n+2 as, i is going till i+2
+        int[] prev2=new int[2];
         
         for(int i=n+1;i>=0;i--){
+            
+            int[] curr=new int[2];
+            
             for(int buy=0;buy<2;buy++){
                 
-                if(i>=n) dp[i][buy]=0;
+                if(i>=n) curr[buy]=0;
                 else{
                     int profit=0;
                     if(buy==1){
-                        profit=Math.max(-prices[i] + dp[i+1][0],dp[i+1][1]); 
+                        profit=Math.max(-prices[i] + prev[0],prev[1]); 
                     }else{
                         
-                        int sellNow=prices[i] + dp[i+2][1];
-                        int sellLater=dp[i+1][0];
+                        int sellNow=prices[i] + prev2[1];
+                        int sellLater=prev[0];
                         profit=Math.max(sellNow,sellLater); 
                     }
                     
-                    dp[i][buy]=profit;
+                    curr[buy]=profit;
                 }
                 
             }
+            prev2=prev;
+            prev=curr;
         }
-        return dp[0][1];
+        return prev[1];
     }
     
 }

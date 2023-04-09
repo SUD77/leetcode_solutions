@@ -1,35 +1,33 @@
+//Recursion
 class Solution {
     public int maxProfit(int k, int[] prices) {
+        int n=prices.length;
         
+        int[][][] dp=new int[n][2][k+1];
         
-         int n=prices.length;
-        
-        int[][][] dp=new int[n+1][2][k+1];
-        
-        
-        /* Doint all values to zero will ensure that our base cases are captured here
-        i.e of dp[0..to..n][0 or 1][0] = 0 and similarly for when index is n, everything will be 0. Look at strivers video, if any doubt*/
         for(int[][] x:dp){
             for(int[] y:x){
-                Arrays.fill(y,0);
+                Arrays.fill(y,-1);
             }
         }
         
-        for(int index=n-1;index>=0;index--){
-            
-            for(int buy=0;buy<=1;buy++){
-                
-                for(int cap=1;cap<=k;cap++){
-                    
-                    if(buy==1){
-                        dp[index][buy][cap]=Math.max(-prices[index]+dp[index+1][0][cap],dp[index+1][1][cap]);
-                    } else {
-                        dp[index][buy][cap]= Math.max(prices[index] + dp[index+1][1][cap-1] , dp[index+1][0][cap]);
-                    }
-                }
-            }
+        return solUtil(prices,0,1,k,dp);
+    }
+    
+    public int solUtil(int[] prices,int i,int buy,int k,int[][][] dp){
+        
+        if(k==0) return 0;
+        if(i==prices.length) return 0;
+        
+        if(dp[i][buy][k]!=-1) return dp[i][buy][k];
+        
+        int profit=0;
+        if(buy==1){
+            profit= Math.max(-prices[i] + solUtil(prices,i+1,0,k,dp),solUtil(prices,i+1,1,k,dp));
+        }else{
+            profit= Math.max(prices[i] + solUtil(prices,i+1,1,k-1,dp),solUtil(prices,i+1,0,k,dp));
         }
         
-        return dp[0][1][k];
+        return dp[i][buy][k]=profit;
     }
 }

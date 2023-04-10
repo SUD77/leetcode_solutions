@@ -17,6 +17,7 @@ class Solution {
                 if(matrix[i][j]=='1') height[j]++;
                 else height[j]=0;
             }
+            
             int area=largestRectangleArea(height);
             maxArea=Math.max(area,maxArea);
         }
@@ -24,18 +25,18 @@ class Solution {
         return maxArea;
     }
     
-    public int largestRectangleArea(int histo[]){
+    public int largestRectangleArea(int[] histogram){
         
         Stack<Integer> st=new Stack<>();
         
         int maxA=0;
-        int n=histo.length;
+        int n=histogram.length;
         
         for(int i=0;i<=n;i++){
             
-            while(!st.empty() && (i==n || histo[st.peek()] >= histo[i])){
+            while(!st.empty() && (i==n || histogram[st.peek()] >= histogram[i])){
                 
-                int height=histo[st.peek()];
+                int height=histogram[st.peek()];
                 
                 st.pop();
                 int width;
@@ -46,8 +47,10 @@ class Solution {
                     width=i-st.peek()-1;
                 maxA=Math.max(maxA,width*height);
             }
+            
             st.push(i);
         }
+        
         return maxA;
     }
 }

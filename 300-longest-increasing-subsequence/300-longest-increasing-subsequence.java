@@ -1,35 +1,28 @@
-//Space Optimization
+//Different sol
+// Mentioned in dp42 video from 10th min to 16th min
 
 class Solution {
     public int lengthOfLIS(int[] nums) {
         
         int n=nums.length;
+        int maxAns=1;
         
-        int[] prev=new int[n+1];
+        int[] dp=new int[n];
+        Arrays.fill(dp,1);
         
-        
-        for(int index=n-1;index>=0;index--){
+        for(int index=0;index<n;index++){
             
-            int[] curr=new int[n+1];
-            
-            for(int prevIndex=index-1;prevIndex>=-1;prevIndex--){
+            for(int prevIndex=0;prevIndex<index;prevIndex++){
                 
-                int notPick=prev[prevIndex+1]; 
-        
-                int pick=0;
-                if(prevIndex==-1){
-                    pick=1+prev[index+1]; 
-                }else if(nums[index]>nums[prevIndex]){
-                    pick=1+prev[index+1]; 
-                }
-
-                curr[prevIndex+1]=Math.max(pick,notPick);
+               if(nums[prevIndex]<nums[index]){
+                   dp[index]=Math.max(dp[index],1+dp[prevIndex]);
+               }
             }
+            maxAns=Math.max(maxAns,dp[index]);
             
-            prev=curr;
         }
                 
-        return prev[0]; 
+        return maxAns; 
     }
     
 }

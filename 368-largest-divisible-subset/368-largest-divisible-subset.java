@@ -1,42 +1,60 @@
 class Solution {
     public List<Integer> largestDivisibleSubset(int[] nums) {
         
-        int[] dp=new int[nums.length];
-        return constructLDS(nums,dp,getLDSsize(nums,dp));
-    }
-    
-    private int getLDSsize(int[] nums,int[] dp){
+        int n=nums.length;
+        int maxAns=1;
+        int lastIndex=0;
         
         Arrays.sort(nums);
+        
+        //We will fill dp with 1, as indiviudal ele are LIS of size 1
+        int[] dp=new int[n];
         Arrays.fill(dp,1);
-        int ldsSize=1;
         
-        for(int i=1;i<nums.length;i++){
-            for(int j=0;j<i;j++){
-                if(nums[i]%nums[j] == 0){
-                    dp[i] = Math.max(dp[i],dp[j]+1);
-                    ldsSize=Math.max(ldsSize,dp[i]);
-                }
-            }
-        }
+        /*
+        Hash will store INDEX of the last smaller ele than the curr ele. 
+        */
+        int[] hash=new int[n];
         
-        return ldsSize;
-    }
-    
-    private List<Integer> constructLDS(int[] nums,int[] dp,int ldsSize){
-        
-        int prev=-1;
-        LinkedList<Integer> lds=new LinkedList<Integer>();
-        
-        for(int i=dp.length-1;i>=0;i--){
-            if(dp[i]==ldsSize && (prev==-1 || prev%nums[i]==0)){
+        for(int index=0;index<n;index++){
+            
+            //assigns the index of ele itself. 
+            hash[index]=index;
+            
+            for(int prevIndex=0;prevIndex<index;prevIndex++){
                 
-                lds.addFirst(nums[i]);
-                ldsSize--;
-                prev=nums[i];
+               if(nums[index]%nums[prevIndex]==0 
+                 && 1+dp[prevIndex] > dp[index]){
+                   
+                   dp[index]=1+dp[prevIndex];
+                   hash[index]=prevIndex;
+               }
             }
+           
+            
+            if(dp[index] > maxAns){
+                maxAns=dp[index];
+                lastIndex=index;
+            }
+            
         }
         
-        return lds;
+        List<Integer> temp=new ArrayList<>();
+        temp.add(nums[lastIndex]);
+        
+        while(hash[lastIndex]!=lastIndex){
+            lastIndex=hash[lastIndex];
+            temp.add(nums[lastIndex]);
+        }
+           
+        
+        Collections.reverse(temp);
+        
+        // for(int x:temp){
+        //     System.out.println(x + " ");
+        // }
+        
+        return temp; 
+        
     }
 }

@@ -1,27 +1,56 @@
-//Different sol
-// Mentioned in dp42 video from 10th min to 16th min
+//Printing LIS (by applying backtrack)
 
 class Solution {
     public int lengthOfLIS(int[] nums) {
         
         int n=nums.length;
         int maxAns=1;
+        int lastIndex=0;
         
+        //We will fill dp with 1, as indiviudal ele are LIS of size 1
         int[] dp=new int[n];
         Arrays.fill(dp,1);
         
+        /*
+        Hash will store INDEX of the last smaller ele than the curr ele. 
+        */
+        int[] hash=new int[n];
+        
         for(int index=0;index<n;index++){
+            
+            //assigns the index of ele itself. 
+            hash[index]=index;
             
             for(int prevIndex=0;prevIndex<index;prevIndex++){
                 
-               if(nums[prevIndex]<nums[index]){
-                   dp[index]=Math.max(dp[index],1+dp[prevIndex]);
+               if(nums[prevIndex]<nums[index] 
+                 && 1+dp[prevIndex] > dp[index]){
+                   
+                   dp[index]=1+dp[prevIndex];
+                   hash[index]=prevIndex;
                }
             }
-            maxAns=Math.max(maxAns,dp[index]);
+           
+            
+            if(dp[index] > maxAns){
+                maxAns=dp[index];
+                lastIndex=index;
+            }
             
         }
-                
+        
+        List<Integer> temp=new ArrayList<>();
+        temp.add(nums[lastIndex]);
+        
+        while(hash[lastIndex]!=lastIndex){
+            lastIndex=hash[lastIndex];
+            temp.add(nums[lastIndex]);
+        }
+              
+        for(int x:temp){
+            System.out.println(x + " ");
+        }
+        
         return maxAns; 
     }
     

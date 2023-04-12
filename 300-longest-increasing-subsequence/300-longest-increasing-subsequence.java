@@ -5,32 +5,26 @@ class Solution {
         
         int n=nums.length;
         
-        int[][] dp=new int[n][n];
+        int[][] dp=new int[n+1][n+1];
         
+        for(int index=n-1;index>=0;index--){
+            
+            for(int prevIndex=index-1;prevIndex>=-1;prevIndex--){
+                
+                int notPick=dp[index+1][prevIndex+1]; 
         
-        for(int[] x:dp){
-            Arrays.fill(x,Integer.MIN_VALUE);
+                int pick=0;
+                if(prevIndex==-1){
+                    pick=1+dp[index+1][index+1]; 
+                }else if(nums[index]>nums[prevIndex]){
+                    pick=1+ dp[index+1][index+1]; 
+                }
+
+                dp[index][prevIndex+1]=Math.max(pick,notPick);
+            }
         }
                 
-        return solUtil(nums,-1,0,dp);
+        return dp[0][0]; 
     }
     
-    public int solUtil(int[] nums,int prevIndex,int index,int[][] dp){
-        
-        if(index==nums.length) return 0;
-        
-        if(dp[index][prevIndex+1]!=Integer.MIN_VALUE) return dp[index][prevIndex+1];
-        
-        int notPick=solUtil(nums,prevIndex,index+1,dp);
-        
-        int pick=0;
-        if(prevIndex==-1){
-            pick=1+solUtil(nums,index,index+1,dp);
-        }else if(nums[index]>nums[prevIndex]){
-            pick=1+solUtil(nums,index,index+1,dp);
-        }
-        
-        return dp[index][prevIndex+1]=Math.max(pick,notPick);
-        
-    }
 }

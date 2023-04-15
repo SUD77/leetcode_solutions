@@ -1,5 +1,14 @@
 /*
 For explanation : https://www.youtube.com/watch?v=y4vN0WNdrlg
+
+And this : 
+
+https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/discuss/2108771/find-the-length-of-the-longest-bitonic-subsequence
+
+
+He adds one more conditon ->  if(dp1[i]!=1 && dp2[i]!=1)
+in last for loop for this test case : [9,8,1,7,6,5,4,3,2,1]
+
 */
 class Solution {
     public int minimumMountainRemovals(int[] nums) {

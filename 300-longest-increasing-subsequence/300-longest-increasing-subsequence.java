@@ -1,57 +1,48 @@
-//Printing LIS (by applying backtrack)
+// using binary search 
 
 class Solution {
+    
     public int lengthOfLIS(int[] nums) {
         
         int n=nums.length;
-        int maxAns=1;
-        int lastIndex=0;
         
-        //We will fill dp with 1, as indiviudal ele are LIS of size 1
-        int[] dp=new int[n];
-        Arrays.fill(dp,1);
+        ArrayList<Integer> ans=new ArrayList<>();
+        ans.add(nums[0]);
         
-        /*
-        Hash will store INDEX of the last smaller ele than the curr ele. 
-        */
-        int[] hash=new int[n];
+        int len=1;
         
-        for(int index=0;index<n;index++){
+        for(int i=1;i<n;i++){
             
-            //assigns the index of ele itself. 
-            hash[index]=index;
-            
-            for(int prevIndex=0;prevIndex<index;prevIndex++){
-                
-               if(nums[prevIndex]<nums[index] 
-                 && 1+dp[prevIndex] > dp[index]){
-                   
-                   dp[index]=1+dp[prevIndex];
-                   hash[index]=prevIndex;
-               }
+            if(nums[i]>ans.get(ans.size()-1)){
+                ans.add(nums[i]);
+                len++;
+            }else{
+                int index=binarySearch(ans,nums[i]);
+                ans.set(index,nums[i]);
             }
-           
-            
-            if(dp[index] > maxAns){
-                maxAns=dp[index];
-                lastIndex=index;
-            }
-            
         }
         
-        List<Integer> temp=new ArrayList<>();
-        temp.add(nums[lastIndex]);
-        
-        while(hash[lastIndex]!=lastIndex){
-            lastIndex=hash[lastIndex];
-            temp.add(nums[lastIndex]);
-        }
+        return len;
               
-        for(int x:temp){
-            System.out.println(x + " ");
-        }
-        
-        return maxAns; 
     }
     
+    public int binarySearch(ArrayList<Integer> ans,int key){
+        
+        int low=0;
+        int high=ans.size()-1;
+        
+        while(low<=high){
+            
+            int mid=low+ (high-low)/2;
+            
+            if(ans.get(mid)==key) return mid;
+            else if(ans.get(mid)<key){
+                low=mid+1;
+            }else{
+                high=mid-1;
+            }
+        }
+        
+        return high+1;
+    }
 }

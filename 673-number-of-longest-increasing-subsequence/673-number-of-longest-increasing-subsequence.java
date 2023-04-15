@@ -1,8 +1,7 @@
 class Solution {
-    public int findNumberOfLIS(int[] arr) {
+    public int findNumberOfLIS(int[] nums) {
         
-        int n=arr.length;
-        
+        int n=nums.length;
         
         int[] dp=new int[n];
         int[] count=new int[n];
@@ -12,27 +11,27 @@ class Solution {
         
         int maxi=1;
         
-        for(int i=0; i<n;i++){
+        for(int index=0;index<n;index++){
             
-            for(int prev=0;prev<i;prev++){
+            for(int prev=0;prev<index;prev++){
                 
-                if(arr[prev]<arr[i] && 1 + dp[prev] > dp[i]){
-                    dp[i]=1+dp[prev];
-                    count[i]=count[prev];
-                }else if(arr[prev] < arr[i] && 1+dp[prev]==dp[i]){
-                    count[i]+=count[prev];
+                if(nums[prev]<nums[index] && 1+dp[prev] > dp[index]){
+                    dp[index]=1+dp[prev];
+                    count[index]=count[prev];
+                }else if(nums[prev] < nums[index] && 1+dp[prev]==dp[index]){
+                    count[index]+=count[prev];
                 }
             }
-            maxi=Math.max(maxi,dp[i]);
+            
+            maxi=Math.max(maxi,dp[index]);
         }
         
-        int nos=0;
+        int result=0;
         
         for(int i=0;i<n;i++){
-            if(dp[i]==maxi) nos+=count[i];
+            if(dp[i]==maxi) result+=count[i]; 
         }
         
-        return nos;
-        
+        return result;
     }
 }

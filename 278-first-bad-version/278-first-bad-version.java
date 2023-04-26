@@ -4,25 +4,19 @@
 public class Solution extends VersionControl {
     public int firstBadVersion(int n) {
         
-        if(n==0) return 0;
+        int low=0, high=n;
         
-        int start=1;
-        int end=n;
-        int result=-1;
-        
-        while(start<=end){
+        while(low+1<high){
             
-            int mid=start + (end-start)/2;
+            int mid=low+(int)Math.floor((high-low)/2);
             
             if(isBadVersion(mid)){
-                result=mid;
-                end=mid-1;
+                high=mid;
             }else{
-                start=mid+1;
+                low=mid;
             }
         }
         
-        return result;
-        
+        return high;
     }
 }

@@ -1,60 +1,70 @@
 class Solution {
-    
-    
     public int[] searchRange(int[] nums, int target) {
-
+        int first=firstOccurrance(nums,target);
+        int last=lastOccurence(nums,target);
         
-        int[] result=new int[2];
-        result[0]=findFirst(nums,target);
-        result[1]=findLast(nums,target);
-        
-        return result;
+        return new int[]{first,last};
     }
     
-    private int findFirst(int[] nums,int target){
+    public int firstOccurrance(int[] nums,int target){
         
-        int idx=-1;
-        int start=0;
+        int low=-1;
+        int high=nums.length;
         
-        int end=nums.length-1;
-        
-        while(start<=end){
+        while(low + 1 < high){
             
-            int mid= (start+end)/2;
+            int mid=low + (high - low)/2;
             
-            if(nums[mid]>=target){
-                end = mid -1;
+            if(isGreaterOrEqual(nums[mid],target)){
+                high=mid;
             }else{
-                start = mid + 1;
+                low=mid;
             }
-            
-            if(nums[mid]==target) idx=mid;
         }
         
-        return idx;
-    }
-    
-    
-    private int findLast(int[] nums,int target){
-        
-        int idx=-1;
-        int start=0;
-        
-        int end=nums.length-1;
-        
-        while(start<=end){
-            
-            int mid= (start+end)/2;
-            
-            if(nums[mid]<=target){
-                start = mid + 1;
-            }else{
-                end = mid - 1;
-            }
-            
-            if(nums[mid]==target) idx=mid;
+        if(high==nums.length || nums[high]!=target){
+            return -1;
         }
         
-        return idx;
+        return high;
     }
+    
+    /*low will converge the mid portion
+    i.e low will shrink the portion by moving. 
+    
+    */
+    public int lastOccurence(int[] nums,int target){
+        
+        int low=-1;
+        int high=nums.length;
+        
+        while(low + 1 < high){
+            
+            int mid=low + (high - low)/2;
+            
+            if(isSmallerOrEqual(nums[mid],target)){
+                low=mid;
+            }else{
+                high=mid;
+            }
+        }
+        
+        if(low==-1 || nums[low]!=target){
+            return -1;
+        }
+        
+        return low;
+    }
+    
+    public boolean isGreaterOrEqual(int nums,int target){
+        return nums>=target;
+        
+    }
+    
+    public boolean isSmallerOrEqual(int nums,int target){
+        return nums<=target;
+        
+    }
+    
+    
 }

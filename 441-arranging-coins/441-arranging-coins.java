@@ -4,15 +4,11 @@ class Solution {
         long low=1;
         long high=n;
         
-        long mid;
-        long val;
-        
         while(low+1<high){
             
-            mid=low + (high - low)/2;
-            val= mid* (mid + 1) /2;
+            long mid=low + (high - low)/2;
             
-            if(val<=n){
+            if(coinsInRow(mid)<=n){
                 low=mid;
             }else{
                 high=mid;
@@ -24,7 +20,7 @@ class Solution {
         return (int)low;
     }
     
-    // public long coinsInRow(long mid){
-    //     return mid* (mid + 1) /2;
-    // }
+    public long coinsInRow(long mid){
+        return mid* (mid + 1) /2;
+    }
 }

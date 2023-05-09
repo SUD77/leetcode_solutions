@@ -1,28 +1,30 @@
 class Solution {
     public int arrangeCoins(int n) {
         
-        long start =1;
-        long end=n;
+        long low=1;
+        long high=n;
         
         long mid;
         long val;
         
-        while(start<=end){
+        while(low+1<high){
             
-            mid=start+ (end - start)/2;
-            val= mid * (mid + 1) /2;
+            mid=low + (high - low)/2;
+            val= mid* (mid + 1) /2;
             
-            if(val == n){
-                return (int) mid;
-            }else if(val<n){
-                start=mid+1;
+            if(val<=n){
+                low=mid;
             }else{
-                end=mid-1;
+                high=mid;
             }
             
-            
+          
         }
         
-        return (int) end;
+        return (int)low;
     }
+    
+    // public long coinsInRow(long mid){
+    //     return mid* (mid + 1) /2;
+    // }
 }

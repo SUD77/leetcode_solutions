@@ -1,13 +1,13 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         
-        int n=numCourses;
+        int V=numCourses;
         
         
         //create adj list
         List<List<Integer>> adj=new ArrayList<>();
         
-        for(int i=0;i<n;i++){
+        for(int i=0;i<V;i++){
             adj.add(new ArrayList<>());
         }
         
@@ -15,45 +15,53 @@ class Solution {
             int a=prerequisites[i][0];
             int b=prerequisites[i][1];
             
-            adj.get(a).add(b);
+            adj.get(a).add(b); 
         }
         
+        // add your code here
+        int inDegree[] = new int[V];
         
-        boolean vis[]=new boolean[n];
-        boolean pathVis[]=new boolean[n];
-        
-        for(int i=0;i<n;i++){
+        for(int i=0;i<V;i++){
             
-            if(!vis[i]){
-                if(dfs(i,adj,vis,pathVis)==false) // means cycle is found
-                    return false;
+            for(int it:adj.get(i)){
+                inDegree[it]++;
             }
         }
         
-        return true;
-    }
-    
-    public boolean dfs(int i,List<List<Integer>> adj, boolean[] vis, boolean[] pathVis){
         
-        vis[i]=true;
-        pathVis[i]=true;
         
-        for(int it:adj.get(i)){
+        Queue<Integer> q=new LinkedList<>();
+        
+        for(int i=0;i<V;i++){
+            if(inDegree[i]==0){
+                q.add(i);
+            }
+        }
+        
+        int topo[] = new int[V];
+        int i=0;
+        int count=0;
+        
+        while(!q.isEmpty()){
             
-            if(!vis[it]){
+            int node=q.poll();
+            count++;
+            topo[i++]=node;
+            
+            for(int it:adj.get(node)){
                 
-                if(dfs(it,adj,vis,pathVis)==false){
-                    return false;
+                inDegree[it]--;
+                if(inDegree[it]==0){
+                    q.add(it);
                 }
             }
-            /*
-            path vis ka matlab ki current path jo chal rahi hai, usme ye node "it" aya ya nahi
-            */
-            else if(pathVis[it]){
-                return false; //cycle found, deadlock , we cant finish all courses ,so false
-            }
         }
-        pathVis[i]=false;
-        return true;
+        
+        if(count==V) return true;
+        
+        return false;
+        
     }
+    
+    
 }

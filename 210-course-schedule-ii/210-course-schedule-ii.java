@@ -1,5 +1,5 @@
 /*
-
+1. Used topo sort to solve this. (Topo sort using bfs)
 
 */
 
@@ -17,11 +17,17 @@ class Solution {
             int a = prerequisites[i][0];
             int b = prerequisites[i][1];
             
+            /*
+            Draw this on paper. Have created so that, in graph we can see
+            indegree wise.
+            
+            */
             adj.get(b).add(a);
         }
         
         
         
+        //Will store inDegree in this for every vertex
         int inDegree[] = new int[V];
         
         for(int i=0;i<V;i++){
@@ -41,6 +47,10 @@ class Solution {
         
         int topo[] = new int[V];
         int i=0;
+        
+        /*Count no of vertices in topo[]. If i.e equal to total V, no cycle.
+        i.e all courses are done. 
+        */
         int count=0;
         
         while(!q.isEmpty()){

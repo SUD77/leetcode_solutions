@@ -1,3 +1,11 @@
+/*
+Question from SDE sheet : 
+Detect A cycle in a Directed Graph using BFS
+
+Video : https://www.youtube.com/watch?v=iTBaI90lpDQ
+*/
+
+
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         
@@ -18,7 +26,7 @@ class Solution {
             adj.get(a).add(b); 
         }
         
-        // add your code here
+        
         int inDegree[] = new int[V];
         
         for(int i=0;i<V;i++){
@@ -40,7 +48,7 @@ class Solution {
         
         int topo[] = new int[V];
         int i=0;
-        int count=0;
+        int count=0;  
         
         while(!q.isEmpty()){
             
@@ -57,6 +65,9 @@ class Solution {
             }
         }
         
+        /*
+        If there's no cycle, then all the vertices will be counted. Hence, we can cover all courses.
+        */
         if(count==V) return true;
         
         return false;

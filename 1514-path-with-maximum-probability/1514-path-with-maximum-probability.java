@@ -6,7 +6,10 @@ class Solution {
         double[] distance = new double[n];
         Arrays.fill(distance , 0);
         
-        //creating adj list
+        /*We want to create adj list like below :  
+        Adj list of example1 = { {{1,0.5 },{2, 0.2}} ,  {{0,0.5},{2,0.5}}  , {{0,0.2},{1,0.5}} }
+        Here, adj list of any node, say 0 -> list of pairs. Each pair depicts two values : adj node, along with its success probability between parent node (say 0) and adj node.  
+        */
         ArrayList<ArrayList<ArrayList<Pair>>> adj = new ArrayList<>();
         for(int i=0; i<n; i++){
             adj.add(new ArrayList<>());
@@ -24,8 +27,6 @@ class Solution {
             ArrayList<Pair> innermostList2 = new ArrayList<>();
             innermostList2.add(new Pair(succProb[i] , u));
             
-        //    { {{1,0.5 } , {2, 0.9}} ,             {{0, 0.5}} }
-            
             adj.get(u).add(innermostList1);
             adj.get(v).add(innermostList2);
 
@@ -33,6 +34,7 @@ class Solution {
         }
         
 
+        //basic dijkstra algorithm from here
         PriorityQueue<Pair> pq = new PriorityQueue<>((x, y) -> Double.compare(y.dist, x.dist));
         pq.add(new Pair(1,start));
         

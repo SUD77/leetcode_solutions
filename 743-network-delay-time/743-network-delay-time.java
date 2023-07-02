@@ -1,7 +1,15 @@
+///Dijkstra Algorithm 
+
+
 class Solution {
     public int networkDelayTime(int[][] times, int n, int k) {
         
         
+        /* Create adjacency list of type
+        {{ {v node, time (from u to v)}, { v2 node, time (from u to v)} } , { <source - u node>} }
+            <source - u node>                                                                   
+        
+        */
         ArrayList<ArrayList<Pair>> adj=new ArrayList<>();
         
         for(int i=0;i<=n;i++){
@@ -12,6 +20,8 @@ class Solution {
             adj.get(times[i][0]).add(new Pair(times[i][2],times[i][1]));
         }
         
+        
+        // From here, basic Dijkstra algo implementation
         int[] dist=new int[n+1];
         Arrays.fill(dist,Integer.MAX_VALUE);
             
@@ -41,8 +51,10 @@ class Solution {
             }
         }
         
-        System.out.println(Arrays.toString(dist));
+        //System.out.println(Arrays.toString(dist));
         
+        
+        // We want the max time in dist array. 
         int minTime=0;
         
         for(int i=1;i<dist.length;i++){

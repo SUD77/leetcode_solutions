@@ -1,3 +1,6 @@
+/*https://leetcode.com/problems/maximize-the-confusion-of-an-exam/discuss/1581341/Detailed-Explanation-oror-Multiple-Approaches-explained-oror-C%2B%2B-Clean-Code
+*/
+
 class Solution {
     public int maxConsecutiveAnswers(String answerKey, int k) {
        

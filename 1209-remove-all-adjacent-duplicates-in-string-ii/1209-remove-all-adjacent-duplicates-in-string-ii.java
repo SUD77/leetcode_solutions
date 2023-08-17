@@ -1,3 +1,5 @@
+// I did the code myself, but understood the algo from here somewhere else
+
 class Solution {
     public String removeDuplicates(String s, int k) {
         

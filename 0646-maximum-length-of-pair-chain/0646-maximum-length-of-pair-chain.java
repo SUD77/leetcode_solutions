@@ -1,3 +1,5 @@
+// https://leetcode.com/problems/maximum-length-of-pair-chain/discuss/3960512/VideoEx-Amazon-explains-a-solution-with-Python-JavaScript-Java-and-C%2B%2B
+
 class Solution {
     public int findLongestChain(int[][] pairs) {
          Arrays.sort(pairs, Comparator.comparingInt(a -> a[1]));

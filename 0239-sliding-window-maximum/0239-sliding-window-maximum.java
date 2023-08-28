@@ -17,6 +17,7 @@ class Solution {
                 q.add(nums[j]);
             }else{
                 
+                // All element before j which are less than it, are useless. 
                 while(q.size()>0 && q.peekLast()<nums[j]){
                     q.removeLast();
                 }
@@ -29,11 +30,13 @@ class Solution {
             else if(j-i+1==k){   // if we hit the window size
                 
                 // answer -> calculation
+                //Storing the max in the window
                 ans[i]=q.peek();
                 
                 //slide the window
                 //calculation
                 
+                //Before moving the i, removing the ele on i
                 if(nums[i]==q.peek()){
                     q.removeFirst();
                 }

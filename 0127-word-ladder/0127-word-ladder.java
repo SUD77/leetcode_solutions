@@ -1,9 +1,13 @@
+// Using BFS 
+
+// TC - N * wordList.lengthh * 26
+// SC - O(wordList.length * 2) for set and queue
+
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         
-         Set<String> set=new HashSet<>();
-
-         set.addAll(wordList);
+        Set<String> set=new HashSet<>();
+        set.addAll(wordList);
         
         Deque<Pair> dq=new LinkedList<>();
         

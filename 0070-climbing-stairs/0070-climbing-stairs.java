@@ -1,5 +1,6 @@
 //Memoization
-
+// Tc - O(N)
+// SC - O(N)
 
 class Solution {
     public int climbStairs(int n) {

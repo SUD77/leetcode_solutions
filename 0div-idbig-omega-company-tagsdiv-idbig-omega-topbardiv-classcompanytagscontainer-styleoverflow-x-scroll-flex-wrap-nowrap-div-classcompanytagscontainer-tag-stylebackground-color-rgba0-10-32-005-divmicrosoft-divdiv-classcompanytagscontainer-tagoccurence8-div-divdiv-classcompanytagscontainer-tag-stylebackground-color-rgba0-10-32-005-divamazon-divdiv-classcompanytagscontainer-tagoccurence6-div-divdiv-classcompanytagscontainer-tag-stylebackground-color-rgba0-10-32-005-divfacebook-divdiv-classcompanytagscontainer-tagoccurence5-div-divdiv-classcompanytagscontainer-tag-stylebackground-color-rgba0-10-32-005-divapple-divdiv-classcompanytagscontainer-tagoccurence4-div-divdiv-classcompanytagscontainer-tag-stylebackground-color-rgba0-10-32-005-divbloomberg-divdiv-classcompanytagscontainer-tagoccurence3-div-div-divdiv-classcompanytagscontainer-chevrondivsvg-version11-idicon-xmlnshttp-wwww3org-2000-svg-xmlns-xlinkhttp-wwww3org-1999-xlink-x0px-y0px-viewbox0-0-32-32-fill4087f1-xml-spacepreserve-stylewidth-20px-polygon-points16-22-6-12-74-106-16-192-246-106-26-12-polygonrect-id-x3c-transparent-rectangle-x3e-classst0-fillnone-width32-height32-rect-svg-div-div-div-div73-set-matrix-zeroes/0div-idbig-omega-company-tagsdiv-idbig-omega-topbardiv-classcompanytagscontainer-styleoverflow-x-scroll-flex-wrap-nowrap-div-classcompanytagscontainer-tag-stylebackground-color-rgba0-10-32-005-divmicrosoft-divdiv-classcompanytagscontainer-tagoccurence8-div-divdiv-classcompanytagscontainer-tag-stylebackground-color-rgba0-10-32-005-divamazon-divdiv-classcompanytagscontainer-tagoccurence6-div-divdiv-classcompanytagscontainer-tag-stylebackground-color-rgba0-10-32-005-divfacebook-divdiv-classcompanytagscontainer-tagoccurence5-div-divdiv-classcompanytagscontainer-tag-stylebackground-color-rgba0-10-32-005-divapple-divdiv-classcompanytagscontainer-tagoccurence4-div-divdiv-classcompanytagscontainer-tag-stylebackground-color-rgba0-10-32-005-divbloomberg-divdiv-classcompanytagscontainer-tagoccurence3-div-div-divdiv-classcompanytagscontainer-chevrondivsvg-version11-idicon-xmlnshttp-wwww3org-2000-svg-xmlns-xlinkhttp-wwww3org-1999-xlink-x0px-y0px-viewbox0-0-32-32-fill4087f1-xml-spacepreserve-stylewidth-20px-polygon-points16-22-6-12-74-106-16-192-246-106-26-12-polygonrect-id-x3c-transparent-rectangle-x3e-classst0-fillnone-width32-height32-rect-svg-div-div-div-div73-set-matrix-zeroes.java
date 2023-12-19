@@ -1,4 +1,3 @@
-// SC - O(n) + O(m)
 // TC - O(n*m)
 
 class Solution {
@@ -7,27 +6,25 @@ class Solution {
         int row=matrix.length;
         int col=matrix[0].length;
         
-        int[] dumRow=new int[row];
-        int[] dumCol=new int[col];
-        
-        int r=0;
-        int c=0;
+        boolean colCheck=false;
         
         for(int i=0;i<row;i++){
-            for(int j=0;j<col;j++){
+            if(matrix[i][0]==0) colCheck=true;
+            for(int j=1;j<col;j++){
                 if(matrix[i][j]==0){
-                    dumRow[i]=-1;
-                    dumCol[j]=-1;
+                    matrix[0][j]=0;
+                    matrix[i][0]=0;
                 }
             }
         }
         
-        for(int i=0;i<row;i++){
-            for(int j=0;j<col;j++){
-                if(dumRow[i]==-1 || dumCol[j]==-1){
+        for(int i=row-1;i>=0;i--){
+            for(int j=col-1;j>=1;j--){
+                if(matrix[0][j]==0 || matrix[i][0]==0){
                     matrix[i][j]=0;
                 }
             }
+            if(colCheck) matrix[i][0]=0;
         }
         
         

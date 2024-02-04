@@ -12,7 +12,7 @@ class Solution {
         for(int i=0;i<n;i++){
             
             if(color[i]==-1){
-              if(!dfs(i,graph,color)) return false; 
+              if(!bfs(i,graph,color)) return false; 
             }
             
         }
@@ -20,20 +20,27 @@ class Solution {
         return true;
     }
     
-    public boolean dfs(int i,int[][] graph,int[] color){
+    public boolean bfs(int i,int[][] graph,int[] color){
         
+        Queue<Integer> q=new LinkedList<>();
         
-        if(color[i]==-1) color[i]=0;
+        q.add(i);
         
-        for(int x:graph[i]){
+        while(!q.isEmpty()){
             
-            if(color[x]==-1){
-                color[x]=1-color[i];
-                if(!dfs(x,graph,color)) return false;
-            }else{
-                if(color[x]==color[i]) return false;
-            }            
+            int node=q.poll();
             
+            if(color[node]==-1) color[node]=0;
+            
+            for(int it:graph[node]){
+                
+                if(color[it]==-1){
+                    color[it]=1-color[node];
+                    q.add(it);
+                }else{
+                    if(color[it]==color[node]) return false;
+                }
+            }
         }
         
         return true;

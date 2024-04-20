@@ -1,7 +1,7 @@
+//Shivangi Code optimization
 class Solution {
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> res = new ArrayList<>();
-        List<Integer> prev = new ArrayList<>();
         
         for(int i=1; i<=numRows; i++){
             
@@ -11,12 +11,12 @@ class Solution {
                     temp.add(1);
                 }
                 else{
-                    int ele = prev.get(j-1) + prev.get(j);
+                    //int ele = prev.get(j-1) + prev.get(j);
+                    int ele = res.get(i-2).get(j-1) + res.get(i-2).get(j); //i starts from 1 and not 0, thats why we are doing res(i-2) to go to prev array in res
                     temp.add(ele);
                 }
             }
             res.add(temp);
-            prev = temp;
         }
         
         return res;

@@ -34,14 +34,6 @@ function merge(intervals: number[][]): number[][] {
     tempList.push(end);
     tempAns.push(tempList);
     
-    const ans: number[][]=new Array(tempAns.length);
-    let i=0;
-    
-    for(const interval of tempAns){
-        ans[i]=[interval[0],interval[1]];
-        i++;
-    }
-    
     return tempAns;
     
 };

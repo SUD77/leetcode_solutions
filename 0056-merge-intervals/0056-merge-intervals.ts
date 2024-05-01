@@ -42,6 +42,6 @@ function merge(intervals: number[][]): number[][] {
         i++;
     }
     
-    return ans;
+    return tempAns;
     
 };

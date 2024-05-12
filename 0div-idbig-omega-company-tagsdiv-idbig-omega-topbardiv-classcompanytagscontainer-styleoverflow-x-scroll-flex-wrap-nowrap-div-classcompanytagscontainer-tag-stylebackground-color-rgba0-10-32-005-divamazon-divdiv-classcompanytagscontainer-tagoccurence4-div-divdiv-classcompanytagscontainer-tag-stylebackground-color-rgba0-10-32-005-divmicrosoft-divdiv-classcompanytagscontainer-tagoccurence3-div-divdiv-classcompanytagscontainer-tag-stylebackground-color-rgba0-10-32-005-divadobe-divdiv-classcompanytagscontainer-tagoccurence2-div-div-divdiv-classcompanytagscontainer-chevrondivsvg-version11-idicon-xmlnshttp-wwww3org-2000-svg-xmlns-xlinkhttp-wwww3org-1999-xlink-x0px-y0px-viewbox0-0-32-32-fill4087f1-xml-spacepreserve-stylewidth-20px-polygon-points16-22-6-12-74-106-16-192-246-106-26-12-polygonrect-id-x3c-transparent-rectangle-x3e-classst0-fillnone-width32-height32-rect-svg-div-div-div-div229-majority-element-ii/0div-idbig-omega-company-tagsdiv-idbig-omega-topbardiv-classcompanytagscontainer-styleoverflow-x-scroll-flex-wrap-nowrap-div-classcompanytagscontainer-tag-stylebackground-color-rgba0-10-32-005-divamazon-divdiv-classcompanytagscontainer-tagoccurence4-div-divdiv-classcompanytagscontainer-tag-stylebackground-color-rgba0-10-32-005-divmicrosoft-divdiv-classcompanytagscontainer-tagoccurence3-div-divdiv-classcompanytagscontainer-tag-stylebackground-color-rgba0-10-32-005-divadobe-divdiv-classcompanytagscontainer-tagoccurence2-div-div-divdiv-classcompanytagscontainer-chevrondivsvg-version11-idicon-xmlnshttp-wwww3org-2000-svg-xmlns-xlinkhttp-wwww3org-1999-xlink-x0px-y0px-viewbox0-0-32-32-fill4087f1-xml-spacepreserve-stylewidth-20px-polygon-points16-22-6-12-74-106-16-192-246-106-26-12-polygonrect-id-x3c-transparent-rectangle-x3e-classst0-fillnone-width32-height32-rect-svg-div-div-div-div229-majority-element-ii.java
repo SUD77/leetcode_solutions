@@ -3,20 +3,22 @@ class Solution {
         
         int n=nums.length;
         
-        ArrayList<Integer> arr=new ArrayList<>();
+        List<Integer> ans=new ArrayList<>();
         
-        Map<Integer,Integer> mp=new HashMap<>();
+        Map<Integer,Integer> map=new HashMap<>();
         
-        for(int x:nums){
-            mp.put(x,mp.getOrDefault(x,0)+1);
-            
-            if(mp.get(x)>Math.floor(n/3)){
-                if(!arr.contains(x)) arr.add(x);
+        for(int i=0;i<nums.length;i++){
+            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+        }
+        
+        // System.out.println(map);
+        
+        for(int i=0;i<n;i++){
+            if(map.get(nums[i])>(int) (Math.floor(n/3))){
+                if(!ans.contains(nums[i]))ans.add(nums[i]);
             }
         }
         
-        
-        return arr;
-        
+        return ans;
     }
 }

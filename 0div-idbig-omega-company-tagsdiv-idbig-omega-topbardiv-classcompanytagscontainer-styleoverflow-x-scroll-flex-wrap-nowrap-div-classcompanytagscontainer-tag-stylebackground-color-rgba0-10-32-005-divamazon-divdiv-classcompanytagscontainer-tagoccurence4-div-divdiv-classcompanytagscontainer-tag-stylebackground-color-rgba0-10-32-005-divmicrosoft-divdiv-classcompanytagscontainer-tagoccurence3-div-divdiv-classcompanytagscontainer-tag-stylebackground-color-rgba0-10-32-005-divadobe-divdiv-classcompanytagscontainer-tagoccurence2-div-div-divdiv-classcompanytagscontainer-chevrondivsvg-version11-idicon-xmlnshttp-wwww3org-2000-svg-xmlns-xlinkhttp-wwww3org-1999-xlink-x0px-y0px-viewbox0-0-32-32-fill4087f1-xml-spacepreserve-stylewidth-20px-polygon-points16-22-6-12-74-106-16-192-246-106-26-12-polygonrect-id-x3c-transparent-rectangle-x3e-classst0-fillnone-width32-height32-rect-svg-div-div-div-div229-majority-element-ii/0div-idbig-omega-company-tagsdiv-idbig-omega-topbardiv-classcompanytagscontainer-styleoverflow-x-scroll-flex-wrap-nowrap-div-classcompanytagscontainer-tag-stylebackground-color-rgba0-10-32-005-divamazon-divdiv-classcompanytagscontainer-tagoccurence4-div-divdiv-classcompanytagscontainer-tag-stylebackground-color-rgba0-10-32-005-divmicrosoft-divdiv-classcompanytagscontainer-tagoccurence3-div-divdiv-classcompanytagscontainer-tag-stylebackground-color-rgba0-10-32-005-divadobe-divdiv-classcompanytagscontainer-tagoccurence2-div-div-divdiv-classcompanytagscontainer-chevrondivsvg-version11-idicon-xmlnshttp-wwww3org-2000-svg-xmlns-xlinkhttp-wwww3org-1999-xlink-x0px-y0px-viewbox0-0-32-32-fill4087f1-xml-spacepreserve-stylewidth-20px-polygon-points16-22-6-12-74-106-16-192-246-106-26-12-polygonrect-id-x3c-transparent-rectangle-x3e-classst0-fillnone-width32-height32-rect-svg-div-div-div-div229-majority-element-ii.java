@@ -14,8 +14,8 @@ class Solution {
         // System.out.println(map);
         
         for(int i=0;i<n;i++){
-            if(map.get(nums[i])>(int) (Math.floor(n/3))){
-                if(!ans.contains(nums[i]))ans.add(nums[i]);
+            if(map.get(nums[i]) > (n/3)){
+                if(!ans.contains(nums[i])) ans.add(nums[i]);
             }
         }
         

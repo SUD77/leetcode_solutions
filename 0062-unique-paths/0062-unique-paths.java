@@ -1,33 +1,33 @@
+//Memoization 
+//TC - O((m*n))
+// SC - O(m+n) + O(m*n)
+
 class Solution {
     public int uniquePaths(int m, int n) {
         
-        int[] prev=new int[n];
+        int[][] dp=new int[m+1][n+1];
         
-        for(int i=m-1;i>=0;i--){
-            
-            int[] cur=new int[n];
-            
-            for(int j=n-1;j>=0;j--){
-                
-                if(i==m-1 && j==n-1) cur[j]=1;
-                else{
-                    int down=0;
-                    int right=0;
-                    
-                    if(i+1<m) down=prev[j];
-                    if(j+1<n) right=cur[j+1];
-                    
-                    cur[j]=down+right;
-                }
-                
-                
-            }
-            
-            prev=cur;
+        for(int[] x:dp){
+            Arrays.fill(x,-1);
         }
         
-        return prev[0];
+        return solUtil(m-1,n-1,m,n,dp);
     }
     
-    
+    public int solUtil(int i,int j,int m,int n,int[][] dp){
+        
+        if(i<0 || j<0) return 0; 
+        
+        if(i==0 && j==0) return 1;
+        
+        if(dp[i][j]!=-1) return dp[i][j];
+        
+        int left=solUtil(i,j-1,m,n,dp);
+        int up=solUtil(i-1,j,m,n,dp);
+        
+        
+        return dp[i][j]=left + up;
+        
+        
+    }
 }

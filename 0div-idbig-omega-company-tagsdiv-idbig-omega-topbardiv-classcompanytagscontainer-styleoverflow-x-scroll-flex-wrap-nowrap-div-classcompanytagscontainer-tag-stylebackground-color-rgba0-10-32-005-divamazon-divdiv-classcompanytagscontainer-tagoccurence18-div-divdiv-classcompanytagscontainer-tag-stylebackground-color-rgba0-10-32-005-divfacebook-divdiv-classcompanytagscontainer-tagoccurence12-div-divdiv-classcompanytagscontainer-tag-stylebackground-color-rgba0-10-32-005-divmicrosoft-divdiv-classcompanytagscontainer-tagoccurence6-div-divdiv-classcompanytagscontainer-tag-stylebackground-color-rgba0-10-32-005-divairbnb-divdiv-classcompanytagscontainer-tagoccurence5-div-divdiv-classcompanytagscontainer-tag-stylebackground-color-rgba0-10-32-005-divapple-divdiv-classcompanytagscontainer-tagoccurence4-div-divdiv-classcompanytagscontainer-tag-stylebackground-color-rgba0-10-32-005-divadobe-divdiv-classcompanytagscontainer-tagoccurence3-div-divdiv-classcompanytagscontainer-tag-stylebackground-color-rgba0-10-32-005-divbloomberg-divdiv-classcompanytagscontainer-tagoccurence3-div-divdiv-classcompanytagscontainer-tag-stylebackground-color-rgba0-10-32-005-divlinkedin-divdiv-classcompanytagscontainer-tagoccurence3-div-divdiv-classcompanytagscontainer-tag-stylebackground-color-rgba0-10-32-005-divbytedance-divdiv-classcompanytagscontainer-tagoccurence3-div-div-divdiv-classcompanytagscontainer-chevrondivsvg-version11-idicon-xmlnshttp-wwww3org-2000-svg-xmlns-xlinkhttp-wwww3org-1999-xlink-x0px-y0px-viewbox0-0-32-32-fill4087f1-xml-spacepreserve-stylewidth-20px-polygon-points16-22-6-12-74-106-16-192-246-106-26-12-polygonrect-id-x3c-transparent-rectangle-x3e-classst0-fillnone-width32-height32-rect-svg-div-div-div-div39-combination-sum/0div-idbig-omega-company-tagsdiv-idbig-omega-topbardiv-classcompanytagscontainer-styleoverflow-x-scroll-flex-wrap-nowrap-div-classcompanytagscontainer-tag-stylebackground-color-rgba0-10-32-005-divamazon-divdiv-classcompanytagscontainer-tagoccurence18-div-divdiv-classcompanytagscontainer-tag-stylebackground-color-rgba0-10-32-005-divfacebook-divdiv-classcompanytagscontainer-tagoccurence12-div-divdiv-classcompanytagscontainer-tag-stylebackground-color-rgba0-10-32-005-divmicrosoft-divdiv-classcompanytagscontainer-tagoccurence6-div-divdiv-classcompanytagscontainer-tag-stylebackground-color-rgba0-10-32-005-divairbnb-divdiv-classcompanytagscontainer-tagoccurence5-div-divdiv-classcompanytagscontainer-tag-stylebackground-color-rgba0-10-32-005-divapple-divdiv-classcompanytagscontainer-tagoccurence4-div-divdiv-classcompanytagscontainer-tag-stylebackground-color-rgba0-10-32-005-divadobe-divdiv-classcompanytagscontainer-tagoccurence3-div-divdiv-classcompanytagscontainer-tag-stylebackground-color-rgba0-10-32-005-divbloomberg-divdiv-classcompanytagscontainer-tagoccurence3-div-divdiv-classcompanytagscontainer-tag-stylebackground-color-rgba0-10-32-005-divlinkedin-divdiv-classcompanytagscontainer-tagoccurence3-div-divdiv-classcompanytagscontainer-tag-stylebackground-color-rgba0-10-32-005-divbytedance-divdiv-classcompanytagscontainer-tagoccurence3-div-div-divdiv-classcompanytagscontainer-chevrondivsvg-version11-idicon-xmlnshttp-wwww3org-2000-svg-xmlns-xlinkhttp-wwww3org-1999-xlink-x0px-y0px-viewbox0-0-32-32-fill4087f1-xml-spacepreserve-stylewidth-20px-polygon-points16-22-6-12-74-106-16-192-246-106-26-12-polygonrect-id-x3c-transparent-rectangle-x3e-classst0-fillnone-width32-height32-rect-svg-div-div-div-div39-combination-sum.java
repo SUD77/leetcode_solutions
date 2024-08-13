@@ -1,46 +1,39 @@
 class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> res=new ArrayList<>();
         
-        List<Integer> temp=new ArrayList<>();
+        Set<List<Integer>> res=new HashSet<>();
         
-        solUtil(0,candidates,target,temp,res);
-
-        return res;
+        int n=candidates.length;
+        
+        solUtil(0,candidates,target,res,new ArrayList<>());
+        
+        return new ArrayList<>(res);
     }
     
-    
-    public void solUtil(int index,int[] candidates,int target,List<Integer> temp,List<List<Integer>> res){
+    public void solUtil(int i,int[] candidates,int target, Set<List<Integer>> res,List<Integer> temp){
         
-        if(index==candidates.length)
-        {
-            if(target==0){
-                List<Integer> dummy=new ArrayList<>(temp);
-                //System.out.println("1" + temp);
-                res.add(dummy);
-                
-            }
+        if(i==candidates.length){
             
+            if(target==0){
+              res.add(new ArrayList<>(temp));
+            }
+
             return;
         }
         
         if(target==0){
-            List<Integer> dummy=new ArrayList<>(temp);
-            //System.out.println("2: " + temp);
-            res.add(dummy);
-            return;
+            res.add(new ArrayList<>(temp));
+            return;   
         }
+     
         
         
-        
-        
-        if(target-candidates[index]>=0){
-            temp.add(candidates[index]);
-            solUtil(index,candidates,target-candidates[index],temp,res);
+        if(target-candidates[i]>=0){
+            temp.add(candidates[i]);
+            solUtil(i,candidates,target-candidates[i],res,temp);
             temp.remove(temp.size()-1);
         }
-        
-        solUtil(index+1,candidates,target,temp,res);
-        
+            
+        solUtil(i+1,candidates,target,res,temp);
     }
 }

@@ -1,36 +1,33 @@
+//TC = O(n x n) to find factorial * then in each iteartion removing element from list
+//SC = O(N)
+
 class Solution {
     public String getPermutation(int n, int k) {
         
-        int fact=1;
-        String ans="";
-        List<Integer> tempArray=new ArrayList<>();
+        List<Integer> numberList = new ArrayList<>();
         
-        for(int i=1;i<=n;i++){
-            tempArray.add(i);
-            fact*=i;
+        int fact = 1; //fact calculating only till 3!
+        for(int i=1; i<n; i++){
+            fact = fact * i;
+            numberList.add(i);
         }
+        numberList.add(n); //creating numberList array as {1,2,3,4}
         
         
-        k=k-1;
-        fact=fact/n;
+        // fact = 3! = 1 x 2 x 3 = 6
+        // k = 17-1 = 16
         
-       
+        k = k - 1;  //take k as 0-based indexing
+        String ans = "";
         while(true){
+            ans += numberList.get(k / fact); // getting number as numList[ 16 / 6]
+            numberList.remove(k / fact); //removing that number from numList
             
-            int curEle = tempArray.get(k/fact);
-            ans=ans+ (tempArray.get(k/fact));
-             
-            tempArray.remove(k/fact);
+            if(numberList.size() == 0 ) break;
             
-            if(tempArray.size()==0) break;
-            
-            k=k%fact;
-
-            fact=fact/tempArray.size();
-            
-            
-        }
-        
+            k = k % fact; //16 % 6
+            fact = fact / numberList.size(); //  (3 x 2 x 1) / (3)
+        }        
         return ans;
-    }
+	}
 }

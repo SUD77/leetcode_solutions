@@ -1,5 +1,5 @@
 //dp
-//TC = O(n)
+//TC = O(n * amount)
 //Sc = O(n * amount) + O(n) aux stack space
 
 class Solution {

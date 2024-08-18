@@ -1,6 +1,6 @@
-//recursion
-//TC = O(2^n)
-//Sc = O(n) aux stack space
+//dp
+//TC = O(n)
+//Sc = O(n * amount) + O(n) aux stack space
 
 class Solution {
     public int coinChange(int[] coins, int amount) {

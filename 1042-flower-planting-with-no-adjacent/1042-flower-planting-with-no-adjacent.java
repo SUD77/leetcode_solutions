@@ -1,3 +1,7 @@
+//Similar to M-coloring Problem
+//TC = O(n ^ 4) bcz every node can have 4 colors
+//SC = O(2n) for color[] + aux stack space
+
 class Solution {
     public int[] gardenNoAdj(int n, int[][] paths) {
         

@@ -1,3 +1,10 @@
+/* Striver's video watch but read his material, becasue below solution is not
+in his videos. Below solution is named as Optimized sol - 2 in his article.
+But you need to watch his videos first to even understand this solution.
+*/
+
+
+
 class Solution {
     public int largestRectangleArea(int[] heights) {
         

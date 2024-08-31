@@ -1,3 +1,14 @@
+/*
+N - queens
+TC = O(N!) 
+The first queen has N options, the second queen has (N-1) options (because it cannot be placed in the same row, same column, or on the same diagonal as the first queen), and so on.
+Therefore, the worst-case time complexity is O(N * (N-1) * (N-2) * ... * 1) = O(N!).
+
+SC = O(N x N) board + O(N) stack space + O(N x N!)
+the space complexity is O(N^2) (for the board) + O(N) (for the recursion stack) + O(N * N!) (for storing the solutions).
+
+*/
+
 class Solution {
     public List<List<String>> solveNQueens(int n) {
         
